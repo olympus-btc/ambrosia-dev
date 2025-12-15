@@ -22,12 +22,12 @@ const config = {
   url: "https://olympus-btc.github.io",
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: "/ambrosia/",
+  baseUrl: "/ambrosia-dev/",
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
   organizationName: "olympus-btc", // Usually your GitHub org/user name.
-  projectName: "ambrosia", // Usually your repo name.
+  projectName: "ambrosia-dev", // Usually your repo name.
 
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
@@ -123,7 +123,7 @@ const config = {
           { to: "/team", label: "Equipo", position: "left" },
           { type: 'localeDropdown', position: 'right' },
           {
-            href: "https://github.com/btcgdl/Ambrosia-POS",
+            href: "https://github.com/olympus-btc/ambrosia",
             label: "GitHub",
             position: "right",
           },
