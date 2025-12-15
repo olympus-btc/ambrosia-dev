@@ -36,12 +36,10 @@ jobs:
         with:
           node-version: '20'
           cache: 'npm'
-          cache-dependency-path: 'web/package-lock.json'
+          cache-dependency-path: 'package-lock.json'
       - name: Install dependencies
-        working-directory: web
         run: npm ci
       - name: Build Docusaurus site
-        working-directory: web
         run: npm run build
       - name: Setup Pages
         uses: actions/configure-pages@v5
@@ -49,7 +47,7 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           # Upload build directory from web folder
-          path: 'web/build'
+          path: 'build'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
