@@ -19,10 +19,10 @@ const config = {
   },
 
   // Set the production url of your site here
-  url: "https://olympus-btc.github.io",
+  url: "https://dev.ambrosiapay.com/",
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: "/ambrosia-dev/",
+  baseUrl: "/",
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
