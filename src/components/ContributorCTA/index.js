@@ -1,0 +1,48 @@
+import React from 'react';
+import Link from '@docusaurus/Link';
+import Translate from '@docusaurus/Translate';
+import { Cpu, BookOpen, Coffee, Github } from 'lucide-react';
+
+export default function ContributorCTA() {
+  return (
+    <section className="py-24 px-4 bg-gradient-to-br from-green-900/20 to-black border-t border-white/5 relative overflow-hidden">
+      <div className="max-w-4xl mx-auto text-center relative z-10">
+        <h2 className="text-3xl md:text-5xl font-bold text-neutral-100 mb-6">
+          ¿Listo para escribir código?
+        </h2>
+        <h3 className="text-xl text-neutral-400 mb-10">
+          Revisa nuestros issues abiertos o lee la guía de contribución para empezar.
+        </h3>
+        <div className="flex flex-wrap justify-center gap-4">
+          <Link
+            className="inline-flex items-center gap-2 px-8 py-4 bg-green-500 hover:bg-green-400 text-neutral-900 font-bold rounded-xl transition-all hover:-translate-y-1 shadow-lg shadow-green-500/20 no-underline hover:text-neutral-900"
+            to="/docs/Development/Setup"
+          >
+            <Cpu size={20} />
+            Configurar Entorno
+          </Link>
+          <Link
+            className="inline-flex items-center gap-2 px-8 py-4 bg-white/5 hover:bg-white/10 text-neutral-100 font-bold rounded-xl border border-white/10 transition-all hover:-translate-y-1 no-underline hover:text-neutral-100"
+            to="/docs/API/Authentication/Auth"
+          >
+            <BookOpen size={20} />
+            Documentación API
+          </Link>
+        </div>
+        <div className="mt-12 flex items-center justify-center gap-8 text-neutral-500 text-sm">
+          <span className="flex items-center gap-2">
+            <Coffee size={16} />
+            Código hecho con café y pasión
+          </span>
+          <span className="flex items-center gap-2">
+            <Github size={16} />
+            PRs son bienvenidos
+          </span>
+        </div>
+      </div>
+      
+      {/* Background glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-green-500/10 rounded-full blur-[120px] pointer-events-none" />
+    </section>
+  );
+}

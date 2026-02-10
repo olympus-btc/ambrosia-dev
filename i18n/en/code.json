@@ -1,7 +1,59 @@
 {
+  "homepage.hero.eyebrow": {
+    "message": "AMBROSIA POS",
+    "description": "Eyebrow text for hero"
+  },
+  "homepage.hero.headline": {
+    "message": "Build the Future with Ambrosia",
+    "description": "Headline for hero"
+  },
+  "homepage.hero.subheadline": {
+    "message": "The Open Source POS system empowering the Bitcoin community. Join us and help create the free standard for payments.",
+    "description": "Subheadline for hero"
+  },
+  "homepage.hero.badge.node": {
+    "message": "Native Node",
+    "description": "Badge text"
+  },
+  "homepage.hero.badge.lightning": {
+    "message": "Lightning Ready",
+    "description": "Badge text"
+  },
+  "homepage.hero.badge.opensource": {
+    "message": "100% Open Source",
+    "description": "Badge text"
+  },
+  "homepage.hero.badge.free": {
+    "message": "Free to Use",
+    "description": "Badge text"
+  },
+  "homepage.hero.cta.download": {
+    "message": "Get Started",
+    "description": "CTA text"
+  },
+  "homepage.hero.cta.github": {
+    "message": "GitHub",
+    "description": "CTA text"
+  },
+  "homepage.hero.trust": {
+    "message": "Trusted by Bitcoiners worldwide",
+    "description": "Trust text"
+  },
   "homepage.hero.subtitle": {
     "message": "Open-source POS system accepting Bitcoin and Lightning Network",
     "description": "The subtitle of the homepage hero"
+  },
+  "homepage.hero.headline.docs": {
+    "message": "Documentation",
+    "description": "The headline for the docs portal"
+  },
+  "homepage.hero.subheadline.docs": {
+    "message": "Explore our payments API, Lightning Network integration guides, and technical documentation to build on the open standard for Bitcoin.",
+    "description": "The subheadline for the docs portal"
+  },
+  "homepage.hero.cta.docs": {
+    "message": "Read Docs",
+    "description": "Label for the CTA button to read docs"
   },
   "homepage.getStarted": {
     "message": "Get Started",
