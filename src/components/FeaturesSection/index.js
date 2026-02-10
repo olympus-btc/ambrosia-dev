@@ -32,13 +32,13 @@ export default function FeaturesSection() {
   ];
 
   return (
-    <section className="py-24 px-4 bg-[#0a0a0a]">
+    <section className="py-24 px-4 bg-transparent">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-neutral-100 mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-ambrosia-green-900 dark:text-neutral-100 mb-4">
             <Translate id="feature.devResources.title">Recursos para Desarrolladores</Translate>
           </h2>
-          <p className="text-neutral-400 text-lg max-w-2xl mx-auto">
+          <p className="text-ambrosia-green-800 dark:text-neutral-400 text-lg max-w-2xl mx-auto">
             <Translate id="feature.devResources.description">Todo lo que necesitas para integrar pagos de Bitcoin en tu infraestructura.</Translate>
           </p>
         </div>

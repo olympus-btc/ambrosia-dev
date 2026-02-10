@@ -18,7 +18,7 @@
 
   --ifm-code-font-size: 95%;
 
-  --ifm-background-color: #dddada;
+  --ifm-background-color: #ffffff;
 
   --ifm-color-primary: #205d3b;
   --ifm-color-primary-dark: #1d5435;
@@ -157,4 +157,13 @@
 [data-theme="dark"] .alert--info {
   background-color: var(--ambrosia-green-950);
   color: var(--ambrosia-green-200);
+}
+
+/* Custom Section Background */
+.bg--card {
+  background: linear-gradient(180deg, var(--ambrosia-green-50), var(--ambrosia-green-100));
+}
+
+[data-theme="dark"] .bg--card {
+  background:#141414;
 }

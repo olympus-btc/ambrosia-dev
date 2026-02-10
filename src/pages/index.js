@@ -15,7 +15,7 @@ export default function Home() {
       description="Portal de desarrolladores para Ambrosia POS. Documentación, guías y recursos para contribuir al proyecto."
     >
       <HomepageHero />
-      <main>
+      <main className="bg--card">
         <FeaturesSection />
         <BenefitsSection />
         <TechStackSection />
