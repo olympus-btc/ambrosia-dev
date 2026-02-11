@@ -11,9 +11,13 @@
     "message": "More about us",
     "description": "The title of the footer links column with title=More about us in the footer"
   },
-  "link.item.label.Api": {
+  "link.item.label.API": {
     "message": "API",
     "description": "The label of footer link with label=API linking to /docs/API/Authentication/Auth"
+  },
+  "link.item.label.Phoenix": {
+    "message": "Phoenix",
+    "description": "The label of footer link with label=Phoenix linking to /docs/Phoenixd/1-SingleScript"
   },
   "link.item.label.BTCGDL": {
     "message": "BTCGDL",
@@ -38,9 +42,5 @@
   "copyright": {
     "message": "Support us",
     "description": "The footer copyright"
-  },
-  "logo.alt": {
-    "message": "Support us",
-    "description": "The alt text of footer logo"
   }
 }

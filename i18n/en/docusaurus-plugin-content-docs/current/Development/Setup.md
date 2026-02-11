@@ -22,9 +22,8 @@ A clean, structured guide to run Ambrosia‑POS locally with native tools.
 - Node.js >= 18 and npm.
 - phoenixd (Lightning):
   ```bash
-  curl -fsSL https://raw.githubusercontent.com/btcgdl/Mastering-phoenixd/master/scripts/install.sh | bash -s -- --yes
+  curl -fsSL https://raw.githubusercontent.com/olympus-btc/ambrosia-dev/master/scripts/install.sh | bash -s -- --yes
   ```
-  Full guide: https://btcgdl.github.io/Mastering-phoenixd/
 
 ## Quick check
 ```bash
