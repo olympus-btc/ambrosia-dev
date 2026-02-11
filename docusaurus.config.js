@@ -30,7 +30,18 @@ const config = {
   projectName: "ambrosia-dev", // Usually your repo name.
 
   onBrokenLinks: "throw",
-  onBrokenMarkdownLinks: "warn",
+  markdown: {
+    format: "mdx",
+    mermaid: true,
+    mdx1Compat: {
+      comments: true,
+      admonitions: true,
+      headingIds: true,
+    },
+    hooks: {
+      onBrokenMarkdownLinks: "warn",
+    },
+  },
 
   // Even if you don't use internationalization, you can use this field to set
   // useful metadata like html lang. For example, if your site is Chinese, you
@@ -99,6 +110,16 @@ const config = {
         },
       },
     ],
+    function tailwindPlugin(context, options) {
+      return {
+        name: "docusaurus-tailwindcss",
+        configurePostCss(postcssOptions) {
+          postcssOptions.plugins.push(require("tailwindcss"));
+          postcssOptions.plugins.push(require("autoprefixer"));
+          return postcssOptions;
+        },
+      };
+    },
   ],
 
   themeConfig:
@@ -107,10 +128,10 @@ const config = {
       // Replace with your project's social card
       image: "img/docusaurus-social-card.jpg",
       navbar: {
-        title: "Ambrosia-POS",
+        title: ' ',
         logo: {
-          alt: "Ambrosia-POS-Logo",
-          src: "img/logo.svg",
+          alt: "Ambrosia Logo",
+          src: "img/logo.png",
         },
         items: [
           {
@@ -131,10 +152,6 @@ const config = {
       },
       footer: {
         style: "dark",
-        logo: {
-          alt: "Apóyanos",
-          src: "img/sponsorqr.svg",
-        },
         links: [
           {
             title: "Documentacion",
@@ -176,7 +193,7 @@ const config = {
             ],
           },
         ],
-        copyright: `Apóyanos`,
+        copyright: `Copyright © ${new Date().getFullYear()} Ambrosia-POS. Open Source under MIT License.`,
       },
       prism: {
         theme: prismThemes.oceanicNext,
