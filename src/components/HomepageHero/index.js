@@ -23,7 +23,7 @@ export default function HomepageHero() {
               <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${isDark ? 'bg-green-400' : 'bg-[#3EB489]'}`}></span>
               <span className={`relative inline-flex rounded-full h-2 w-2 ${isDark ? 'bg-green-500' : 'bg-[#2EA379]'}`}></span>
             </span>
-            <Translate id="homepage.hero.eyebrow">DEVELOPER PORTAL v0.5.1</Translate>
+            <Translate id="homepage.hero.eyebrow">v0.5.1</Translate>
           </div>
 
           <h1 className={`text-4xl md:text-6xl font-bold tracking-tight leading-tight ${isDark ? 'text-white' : 'text-neutral-900'}`}>

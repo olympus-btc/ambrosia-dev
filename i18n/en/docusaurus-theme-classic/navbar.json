@@ -7,9 +7,13 @@
     "message": "Ambrosia Logo",
     "description": "The alt text of navbar logo"
   },
-  "item.label.REST-API": {
-    "message": "REST-API",
-    "description": "Navbar item with label REST-API"
+  "item.label.API": {
+    "message": "API",
+    "description": "Navbar item with label API"
+  },
+  "item.label.Phoenix": {
+    "message": "Phoenix",
+    "description": "Navbar item with label Phoenix"
   },
   "item.label.Blog": {
     "message": "Blog",

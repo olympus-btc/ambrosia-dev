@@ -3,40 +3,32 @@
     "message": "Next",
     "description": "The label for version current"
   },
-  "sidebar.tutorialSidebar.category.API": {
-    "message": "API",
-    "description": "The label for category API in sidebar tutorialSidebar"
-  },
-  "sidebar.tutorialSidebar.category.Authentication": {
+  "sidebar.apiSidebar.category.Authentication": {
     "message": "Authentication",
-    "description": "The label for category Authentication in sidebar tutorialSidebar"
+    "description": "The label for category Authentication in sidebar apiSidebar"
   },
-  "sidebar.tutorialSidebar.category.Billing": {
+  "sidebar.apiSidebar.category.Billing": {
     "message": "Billing",
-    "description": "The label for category Billing in sidebar tutorialSidebar"
+    "description": "The label for category Billing in sidebar apiSidebar"
   },
-  "sidebar.tutorialSidebar.category.Bitcoin": {
+  "sidebar.apiSidebar.category.Bitcoin": {
     "message": "Bitcoin",
-    "description": "The label for category Bitcoin in sidebar tutorialSidebar"
+    "description": "The label for category Bitcoin in sidebar apiSidebar"
   },
-  "sidebar.tutorialSidebar.category.Configuration": {
+  "sidebar.apiSidebar.category.Configuration": {
     "message": "Configuration",
-    "description": "The label for category Configuration in sidebar tutorialSidebar"
+    "description": "The label for category Configuration in sidebar apiSidebar"
   },
-  "sidebar.tutorialSidebar.category.Inventory": {
+  "sidebar.apiSidebar.category.Inventory": {
     "message": "Inventory",
-    "description": "The label for category Inventory in sidebar tutorialSidebar"
+    "description": "The label for category Inventory in sidebar apiSidebar"
   },
-  "sidebar.tutorialSidebar.category.Menu": {
-    "message": "Menu",
-    "description": "The label for category Menu in sidebar tutorialSidebar"
-  },
-  "sidebar.tutorialSidebar.category.Printing": {
+  "sidebar.apiSidebar.category.Printing": {
     "message": "Printing",
-    "description": "The label for category Printing in sidebar tutorialSidebar"
+    "description": "The label for category Printing in sidebar apiSidebar"
   },
-  "sidebar.tutorialSidebar.category.Restaurant": {
+  "sidebar.apiSidebar.category.Restaurant": {
     "message": "Restaurant",
-    "description": "The label for category Restaurant in sidebar tutorialSidebar"
+    "description": "The label for category Restaurant in sidebar apiSidebar"
   }
 }

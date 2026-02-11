@@ -136,13 +136,19 @@ const config = {
         items: [
           {
             type: "docSidebar",
-            sidebarId: "tutorialSidebar",
+            sidebarId: "apiSidebar",
             position: "left",
-            label: "REST-API",
+            label: "API",
+          },
+          {
+            type: "docSidebar",
+            sidebarId: "phoenixSidebar",
+            position: "left",
+            label: "Phoenix",
           },
           { to: "/blog", label: "Blog", position: "left" },
           { to: "/team", label: "Equipo", position: "left" },
-          { type: 'localeDropdown', position: 'right' },
+          { type: "localeDropdown", position: "right" },
           {
             href: "https://github.com/olympus-btc/ambrosia",
             label: "GitHub",
@@ -157,8 +163,12 @@ const config = {
             title: "Documentacion",
             items: [
               {
-                label: "Api",
+                label: "API",
                 to: "/docs/API/Authentication/Auth",
+              },
+              {
+                label: "Phoenix",
+                to: "/docs/Phoenixd/1-SingleScript",
               },
             ],
           },

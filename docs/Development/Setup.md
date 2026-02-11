@@ -22,9 +22,8 @@ Una guía clara y ordenada para trabajar en Ambrosia‑POS usando herramientas n
 - Node.js >= 18 y npm.
 - phoenixd (Lightning):
   ```bash
-  curl -fsSL https://raw.githubusercontent.com/btcgdl/Mastering-phoenixd/master/scripts/install.sh | bash -s -- --yes
+  curl -fsSL https://raw.githubusercontent.com/olympus-btc/ambrosia-dev/master/scripts/install.sh | bash -s -- --yes
   ```
-  Guía completa: https://btcgdl.github.io/Mastering-phoenixd/
 
 ## Verificación rápida
 ```bash
