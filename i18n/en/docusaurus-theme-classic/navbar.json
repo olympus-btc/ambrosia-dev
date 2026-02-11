@@ -1,10 +1,10 @@
 {
   "title": {
-    "message": "Ambrosia-POS",
+    "message": "",
     "description": "The title in the navbar"
   },
   "logo.alt": {
-    "message": "Ambrosia-POS-Logo",
+    "message": "Ambrosia Logo",
     "description": "The alt text of navbar logo"
   },
   "item.label.REST-API": {

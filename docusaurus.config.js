@@ -128,8 +128,9 @@ const config = {
       // Replace with your project's social card
       image: "img/docusaurus-social-card.jpg",
       navbar: {
+        title: ' ',
         logo: {
-          alt: "Ambrosia-POS-Logo",
+          alt: "Ambrosia Logo",
           src: "img/logo.png",
         },
         items: [

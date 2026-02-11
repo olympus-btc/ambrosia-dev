@@ -18,7 +18,7 @@ export default function FeaturesSection() {
       title: <Translate id="feature.lightning.title">Lightning Network</Translate>,
       description: 
         <Translate id="feature.lightning.description">
-          Guías para conectar tu nodo LND o CLN y empezar a recibir pagos instantáneos con bajas comisiones.
+          Guías para conectar tu nodo phoenixd y empezar a recibir pagos instantáneos con bajas comisiones.
         </Translate>,
     },
     {

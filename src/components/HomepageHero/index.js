@@ -40,10 +40,10 @@ export default function HomepageHero() {
           <div className="flex flex-wrap gap-4 mt-4">
             <Link
               to="/docs/API/General"
-              className={`inline-flex items-center gap-2 px-6 py-3 font-bold rounded-lg transition-all hover:-translate-y-0.5 no-underline ${
+              className={`inline-flex items-center gap-2 px-6 py-3 font-bold rounded-lg transition-all hover:-translate-y-1 no-underline shadow-xl ${
                 isDark 
-                  ? 'bg-green-500 hover:bg-green-400 text-black hover:text-black' 
-                  : 'bg-[#3EB489] hover:bg-[#2EA379] text-white hover:text-white'
+                  ? 'bg-green-500 hover:bg-green-400 text-black hover:text-black shadow-green-500/40' 
+                  : 'bg-[#3EB489] hover:bg-[#2EA379] text-white hover:text-white shadow-[#3EB489]/50'
               }`}
             >
               <Book size={20} />
@@ -51,10 +51,10 @@ export default function HomepageHero() {
             </Link>
             <Link
               to="https://github.com/olympus-btc/ambrosia"
-              className={`inline-flex items-center gap-2 px-6 py-3 font-medium border rounded-lg transition-all no-underline ${
+              className={`inline-flex items-center gap-2 px-6 py-3 font-medium border rounded-lg transition-all no-underline shadow-xl hover:shadow-2xl ${
                 isDark 
-                  ? 'bg-white/5 hover:bg-white/10 text-white border-white/10 hover:text-white' 
-                  : 'bg-white hover:bg-neutral-100 text-neutral-900 border-neutral-200 hover:text-neutral-900 shadow-sm'
+                  ? 'bg-white/5 hover:bg-white/10 text-white border-white/10 hover:text-white shadow-black/60' 
+                  : 'bg-white hover:bg-neutral-100 text-neutral-900 border-neutral-200 hover:text-neutral-900'
               }`}
             >
               <Github size={20} />
@@ -83,26 +83,26 @@ export default function HomepageHero() {
                 </div>
                 <div className={`text-[10px] font-mono uppercase tracking-widest text-center ${
                   isDark ? 'text-neutral-500' : 'text-neutral-400'
-                }`}>bash — ambrosia-setup</div>
+                }`}>bash — jordypirata@ambrosia</div>
                 <Terminal size={14} className={isDark ? 'text-neutral-600' : 'text-neutral-400'} />
               </div>
               <div className={`p-6 font-mono text-sm leading-relaxed text-left ${
                 isDark ? 'text-neutral-300' : 'text-neutral-700'
               }`}>
                 <div className="flex gap-3">
-                  <span className={isDark ? 'text-green-500' : 'text-[#3EB489]'}>$</span>
+                  <span className={isDark ? 'text-green-500' : 'text-[#3EB489]'}>»</span>
                   <span>git clone https://github.com/olympus-btc/ambrosia.git</span>
                 </div>
                 <div className="flex gap-3 mt-2">
-                  <span className={isDark ? 'text-green-500' : 'text-[#3EB489]'}>$</span>
-                  <span>cd ambrosia && npm install</span>
+                  <span className={isDark ? 'text-green-500' : 'text-[#3EB489]'}>»</span>
+                  <span>cd ambrosia/server && ./gradlew run</span>
                 </div>
                 <div className="flex gap-3 mt-2">
-                  <span className={isDark ? 'text-green-500' : 'text-[#3EB489]'}>$</span>
-                  <span className={isDark ? 'text-green-400/80' : 'text-[#3EB489]/80'}>npm run dev</span>
+                  <span className={isDark ? 'text-green-500' : 'text-[#3EB489]'}>»</span>
+                  <span>cd ../client && npm run dev</span>
                 </div>
                 <div className={`mt-4 italic text-xs ${isDark ? 'text-neutral-500' : 'text-neutral-400'}`}>
-                  # Ready to accept Bitcoin & Lightning payments
+                  # Build the future of Bitcoin payments
                 </div>
               </div>
             </div>

@@ -119,9 +119,121 @@
     "message": "Detailed sales reports, BTC/fiat conversions, and market trend analysis.",
     "description": "The description of the Advanced Analytics feature on the homepage"
   },
+  "homepage.benefits.title": {
+    "message": "Why contribute?",
+    "description": "Title for the benefits section"
+  },
+  "homepage.benefits.subtitle": {
+    "message": "Join a community of passionate developers and leave your mark on the future of free payments.",
+    "description": "Subtitle for the benefits section"
+  },
+  "homepage.contributor.title": {
+    "message": "Ready to write code?",
+    "description": "Title for the contributor CTA"
+  },
+  "homepage.contributor.subtitle": {
+    "message": "Check our open issues or read the contribution guide to get started.",
+    "description": "Subtitle for the contributor CTA"
+  },
+  "homepage.contributor.cta.setup": {
+    "message": "Setup Environment",
+    "description": "Label for the environment setup CTA"
+  },
+  "homepage.contributor.cta.docs": {
+    "message": "API Documentation",
+    "description": "Label for the API documentation CTA"
+  },
+  "homepage.contributor.footer.coffee": {
+    "message": "Code made with coffee and passion",
+    "description": "Footer text for contributor CTA"
+  },
+  "homepage.contributor.footer.prs": {
+    "message": "PRs are welcome",
+    "description": "Footer text for contributor CTA"
+  },
   "benefit.lowFees": {
     "message": "Ultra-low fees compared to traditional processors",
     "description": "A benefit of using the Bitcoin POS"
+  },
+  "benefit.learnBitcoin": {
+    "message": "Master Bitcoin and Lightning protocols",
+    "description": "Benefit for contributors"
+  },
+  "benefit.realExperience": {
+    "message": "Real experience in financial product development",
+    "description": "Benefit for contributors"
+  },
+  "benefit.mentorship": {
+    "message": "Direct mentorship from project maintainers",
+    "description": "Benefit for contributors"
+  },
+  "benefit.network": {
+    "message": "Networking with other developers in the ecosystem",
+    "description": "Benefit for contributors"
+  },
+  "benefit.portfolio": {
+    "message": "Build a solid public portfolio on GitHub",
+    "description": "Benefit for contributors"
+  },
+  "benefit.earlyAccess": {
+    "message": "Early access to new tools and features",
+    "description": "Benefit for contributors"
+  },
+  "benefit.swag": {
+    "message": "Possibility to win exclusive project swag",
+    "description": "Benefit for contributors"
+  },
+  "benefit.impact": {
+    "message": "Help massive Bitcoin adoption",
+    "description": "Benefit for contributors"
+  },
+  "feature.api.title": {
+    "message": "API Reference",
+    "description": "Title for API feature"
+  },
+  "feature.api.description": {
+    "message": "Complete endpoint documentation for authentication, inventory management, and billing.",
+    "description": "Description for API feature"
+  },
+  "feature.lightning.title": {
+    "message": "Lightning Network",
+    "description": "Title for Lightning feature"
+  },
+  "feature.lightning.description": {
+    "message": "Guides to connect your phoenixd node and start receiving instant payments with low fees.",
+    "description": "Description for Lightning feature"
+  },
+  "feature.cli.title": {
+    "message": "CLI Tools",
+    "description": "Title for CLI feature"
+  },
+  "feature.cli.description": {
+    "message": "Command-line tools to automate tasks, configure your POS environment, and manage sats.",
+    "description": "Description for CLI feature"
+  },
+  "feature.devResources.title": {
+    "message": "Developer Resources",
+    "description": "Title for dev resources section"
+  },
+  "feature.devResources.description": {
+    "message": "Everything you need to integrate Bitcoin payments into your infrastructure.",
+    "description": "Description for dev resources section"
+  },
+  "stat.license": {
+    "message": "Open Source License",
+    "description": "Label for license stat"
+  },
+  "stat.backend": {
+    "message": "Robust Backend",
+    "description": "Label for backend stat"
+  },
+  "stat.frontend": {
+    "message": "Modern Frontend",
+    "description": "Label for frontend stat"
+  },
+  "stat.docs": {
+    "message": "Clear Documentation",
+    "description": "Label for docs stat"
   },
   "benefit.instantSettlement": {
     "message": "Instant settlement with Lightning Network",
@@ -175,29 +287,29 @@
     "message": "Built with modern, reliable technologies",
     "description": "The description of the tech stack section on the homepage"
   },
-  "theme.techStack.ktor": {
-    "message": "Backend Framework for Kotlin",
-    "description": "The Ktor framework for building asynchronous servers and clients in connected systems"
-  },
-  "theme.techStack.lightningNetwork": {
-    "message": "Instant, Low-Cost Payments",
-    "description": "A second layer solution for instant and low-cost Bitcoin transactions"
-  },
-  "theme.techStack.reactElectron": {
-    "message": "Modern, Cross-Platform Interface",
-    "description": "A modern, cross-platform interface built with React and Electron"
-  },
   "theme.techStack.kotlin": {
-    "message": "Robust and Scalable Backend",
-    "description": "Robust and scalable backend"
+    "message": "Backend Framework for Kotlin",
+    "description": "Description for Kotlin"
+  },
+  "theme.techStack.react": {
+    "message": "Dynamic user interface library.",
+    "description": "Description for React"
+  },
+  "theme.techStack.electron": {
+    "message": "Cross-platform desktop distribution.",
+    "description": "Description for Electron"
+  },
+  "theme.techStack.ln": {
+    "message": "Deep integration with phoenixd.",
+    "description": "Description for Lightning SDK"
   },
   "theme.techStack.sqlite": {
     "message": "Local Database",
-    "description": "A lightweight, disk-based database"
+    "description": "Description for SQLite"
   },
-  "theme.techStack.restApi": {
-    "message": "Easy Integration with Other Services",
-    "description": "Easy integration with other services"
+  "theme.techStack.docusaurus": {
+    "message": "This documentation platform.",
+    "description": "Description for Docusaurus"
   },
   "theme.ErrorPageContent.title": {
     "message": "This page crashed.",
