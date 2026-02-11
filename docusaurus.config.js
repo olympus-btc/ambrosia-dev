@@ -168,7 +168,7 @@ const config = {
               },
               {
                 label: "Phoenix",
-                to: "/docs/Phoenixd/1-SingleScript",
+                to: "/docs/Script",
               },
             ],
           },

@@ -52,3 +52,5 @@ website/bundler-cpu-profile.json
 website/profile.json.gz
 
 build
+
+GEMINI.md
