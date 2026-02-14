@@ -19,7 +19,7 @@ The order endpoints allow you to manage the restaurant's orders, including the a
       "user_id": "262006ea-8782-4b08-ac3b-b3f13270fec3",
       "table_id": "123e4567-e89b-12d3-a456-426614174000",
       "waiter": "Juan Perez",
-      "status": "pending",
+      "status": "open",
       "total": 45.50,
       "created_at": "2025-01-15T14:30:00Z"
     }
@@ -48,7 +48,7 @@ The order endpoints allow you to manage the restaurant's orders, including the a
     "user_id": "262006ea-8782-4b08-ac3b-b3f13270fec3",
     "table_id": "123e4567-e89b-12d3-a456-426614174000",
     "waiter": "Juan Perez",
-    "status": "pending",
+    "status": "open",
     "total": 45.50,
     "created_at": "2025-01-15T14:30:00Z"
   }
@@ -73,7 +73,7 @@ The order endpoints allow you to manage the restaurant's orders, including the a
       "user_id": "262006ea-8782-4b08-ac3b-b3f13270fec3",
       "table_id": "123e4567-e89b-12d3-a456-426614174000",
       "waiter": "Juan Perez",
-      "status": "pending",
+      "status": "open",
       "total": 45.50,
       "created_at": "2025-01-15T14:30:00Z"
     },
@@ -97,7 +97,7 @@ The order endpoints allow you to manage the restaurant's orders, including the a
     "user_id": "string",
     "table_id": "string",
     "waiter": "string",
-    "status": "string",
+    "status": "open | closed | paid",
     "total": 0.0
   }
   ```
@@ -111,7 +111,7 @@ The order endpoints allow you to manage the restaurant's orders, including the a
       "user_id": "262006ea-8782-4b08-ac3b-b3f13270fec3",
       "table_id": "123e4567-e89b-12d3-a456-426614174000",
       "waiter": "Maria Garcia",
-      "status": "pending",
+      "status": "open",
       "total": 0.0
     }'
   ```
@@ -155,7 +155,7 @@ The order endpoints allow you to manage the restaurant's orders, including the a
         "user_id": "262006ea-8782-4b08-ac3b-b3f13270fec3",
         "table_id": "123e4567-e89b-12d3-a456-426614174000",
         "waiter": "Carlos Lopez",
-        "status": "pending",
+        "status": "open",
         "total": 0.0
       },
       "dishes": [
@@ -192,7 +192,7 @@ The order endpoints allow you to manage the restaurant's orders, including the a
       "user_id": "262006ea-8782-4b08-ac3b-b3f13270fec3",
       "table_id": "123e4567-e89b-12d3-a456-426614174000",
       "waiter": "Ana Martinez",
-      "status": "completed",
+      "status": "paid",
       "total": 48.75
     }'
   ```
@@ -268,7 +268,7 @@ The order endpoints allow you to manage the restaurant's orders, including the a
 - `GET /orders/status/{status}`: Gets all the orders with a specific status.
   - **Authorization:** Requires JWT authentication.
   - **Path Parameters:**
-    - `status` (string): Order status (`pending`, `completed`, etc.).
+    - `status` (string): Order status (`open`, `closed`, `paid`).
 
 - `GET /orders/date-range`: Gets orders within a date range.
   - **Authorization:** Requires JWT authentication.

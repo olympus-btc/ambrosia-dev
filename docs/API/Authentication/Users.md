@@ -57,7 +57,7 @@ Los endpoints de usuarios permiten gestionar las cuentas de usuario en el sistem
     "name": "string",
     "pin": "string",
     "refreshToken": "string",
-    "role": "string"
+    "role": "UUID (ID del rol)"
   }
   ```
   - **cURL Example:**

@@ -10,31 +10,48 @@
   ``` 
   - **cURL Example:**
   
-  The following example shows how to authenticate and save the session cookies in environment variables for later use.
+  Perform the following request to log in. The server will respond with `Set-Cookie` headers containing the necessary tokens.
 
-  ```Bash
-  headers=$(curl -i -X POST http://127.0.0.1:9154/auth/login \
+  ```bash
+  curl -i -X POST http://127.0.0.1:9154/auth/login \
     -H 'Content-Type: application/json' \
-    -d '{ 
-      "name": "cooluser1",
+    -d '{
+      "name": "jordy",
       "pin": "0000"
-    }')
-
-  access_token=$(echo "$headers" | grep -o 'accessToken=[^;]*' | cut -s -d= -f2)
-  refresh_token=$(echo "$headers" | grep -o 'refreshToken=[^;]*' | cut -s -d= -f2)
-
-  export ACCESS_TOKEN="$access_token"
-  export REFRESH_TOKEN="$refresh_token"
+    }'
   ```
 
-  Once the `ACCESS_TOKEN` and `REFRESH_TOKEN` environment variables are set, you can use them in the `Cookie` headers for subsequent requests to protected endpoints.
+  :::warning Required Headers
+  After a successful login, it is **mandatory** to include the received tokens (`accessToken` and `refreshToken`) in the `Cookie` header of all requests to protected endpoints.
+  
+  **Example:**
+  `Cookie: accessToken=...; refreshToken=...`
+  :::
   - **Response Body (Success - 200 OK):**
   ```JSON
   {
-    "message": "Login successful"
+    "message": "Login successful",
+    "user": {
+      "user_id": "f9b9d411-590f-4d10-a164-0173805857de",
+      "name": "jordy",
+      "email": null,
+      "phone": null,
+      "role": "Admin",
+      "role_id": "70d96869-b363-4b5f-a972-897afd30a68c",
+      "isAdmin": true
+    },
+    "perms": [
+      {
+        "id": "8b6c652b3f008627a56d392872698566",
+        "name": "categories_create",
+        "description": "Create categories",
+        "enabled": true
+      },
+      "... (full list of permissions)"
+    ]
   }
   ```
-  - **Response Headers:** `accessToken` (1 minute) and `refreshToken` (30 days) cookies are set
+  - **Response Headers:** `accessToken` (1 min) and `refreshToken` (30 days) cookies are set
 
 - `POST /auth/refresh`: Renews the access token using the refresh token stored in cookies.
  - **Request:** The refresh token must be present in the cookies
