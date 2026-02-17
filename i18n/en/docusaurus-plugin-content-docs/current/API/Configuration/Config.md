@@ -28,6 +28,9 @@ Endpoints for managing the general application configuration.
 
 - `PUT /config`: Updates the application configuration.
   - **Authorization:** Requires administrator token.
+  :::note Important
+  This endpoint requires the **complete** configuration object to be sent. Omitting mandatory fields (such as `businessName` or `businessType`) will result in a `500 Internal Server Error`.
+  :::
   - **Request Body:**
   ```json
   {

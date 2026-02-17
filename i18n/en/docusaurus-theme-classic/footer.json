@@ -1,46 +1,46 @@
 {
-  "link.title.Documentacion": {
-    "message": "Documentation",
-    "description": "The title of the footer links column with title=Documentation in the footer"
+  "link.title.Recursos": {
+    "message": "Resources",
+    "description": "The title of the footer links column with title=Resources in the footer"
   },
   "link.title.Comunidad": {
     "message": "Community",
     "description": "The title of the footer links column with title=Community in the footer"
   },
-  "link.title.Mas sobre nosotros": {
-    "message": "More about us",
-    "description": "The title of the footer links column with title=More about us in the footer"
+  "link.item.label.Tutorial": {
+    "message": "Tutorial",
+    "description": "The label of footer link for the tutorial"
   },
-  "link.item.label.API": {
-    "message": "API",
-    "description": "The label of footer link with label=API linking to /docs/API/Authentication/Auth"
-  },
-  "link.item.label.Phoenix": {
-    "message": "Phoenix",
-    "description": "The label of footer link with label=Phoenix linking to /docs/Phoenixd/1-SingleScript"
-  },
-  "link.item.label.BTCGDL": {
-    "message": "BTCGDL",
-    "description": "The label of footer link with label=BTCGDL linking to https://btcgdl.com/"
-  },
-  "link.item.label.Instagram": {
-    "message": "Instagram",
-    "description": "The label of footer link with label=Instagram linking to https://www.instagram.com/btc.gdl/"
-  },
-  "link.item.label.X": {
-    "message": "X",
-    "description": "The label of footer link with label=X linking to https://x.com/btc_ln_gdl"
-  },
-  "link.item.label.Blog": {
-    "message": "Blog",
-    "description": "The label of footer link with label=Blog linking to /blog"
+  "link.item.label.Página Principal": {
+    "message": "Main Page",
+    "description": "The label of footer link for the main Ambrosia page"
   },
   "link.item.label.GitHub": {
     "message": "GitHub",
-    "description": "The label of footer link with label=GitHub linking to https://github.com/btcgdl"
+    "description": "The label of footer link for GitHub repository"
+  },
+  "link.item.label.Issues": {
+    "message": "Issues",
+    "description": "The label of footer link for GitHub issues"
+  },
+  "link.item.label.Contribuir": {
+    "message": "Contribute",
+    "description": "The label of footer link for contribution guide"
+  },
+  "link.item.label.Nostr": {
+    "message": "Nostr",
+    "description": "The label of footer link for Nostr"
+  },
+  "link.item.label.X (Twitter)": {
+    "message": "X (Twitter)",
+    "description": "The label of footer link for X/Twitter"
+  },
+  "link.item.label.Discord": {
+    "message": "Discord",
+    "description": "The label of footer link for Discord"
   },
   "copyright": {
-    "message": "Support us",
+    "message": "Copyright © 2026 Ambrosia-POS. Open Source under MIT License.",
     "description": "The footer copyright"
   }
 }

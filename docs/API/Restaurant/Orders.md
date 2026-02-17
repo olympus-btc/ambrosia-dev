@@ -19,7 +19,7 @@ Los endpoints de órdenes permiten gestionar los pedidos del restaurante, incluy
       "user_id": "262006ea-8782-4b08-ac3b-b3f13270fec3",
       "table_id": "123e4567-e89b-12d3-a456-426614174000",
       "waiter": "Juan Pérez",
-      "status": "pending",
+      "status": "open",
       "total": 45.50,
       "created_at": "2025-01-15T14:30:00Z"
     }
@@ -48,7 +48,7 @@ Los endpoints de órdenes permiten gestionar los pedidos del restaurante, incluy
     "user_id": "262006ea-8782-4b08-ac3b-b3f13270fec3",
     "table_id": "123e4567-e89b-12d3-a456-426614174000",
     "waiter": "Juan Pérez",
-    "status": "pending",
+    "status": "open",
     "total": 45.50,
     "created_at": "2025-01-15T14:30:00Z"
   }
@@ -73,7 +73,7 @@ Los endpoints de órdenes permiten gestionar los pedidos del restaurante, incluy
       "user_id": "262006ea-8782-4b08-ac3b-b3f13270fec3",
       "table_id": "123e4567-e89b-12d3-a456-426614174000",
       "waiter": "Juan Pérez",
-      "status": "pending",
+      "status": "open",
       "total": 45.50,
       "created_at": "2025-01-15T14:30:00Z"
     },
@@ -97,7 +97,7 @@ Los endpoints de órdenes permiten gestionar los pedidos del restaurante, incluy
     "user_id": "string",
     "table_id": "string",
     "waiter": "string",
-    "status": "string",
+    "status": "open | closed | paid",
     "total": 0.0
   }
   ```
@@ -111,7 +111,7 @@ Los endpoints de órdenes permiten gestionar los pedidos del restaurante, incluy
       "user_id": "262006ea-8782-4b08-ac3b-b3f13270fec3",
       "table_id": "123e4567-e89b-12d3-a456-426614174000",
       "waiter": "María García",
-      "status": "pending",
+      "status": "open",
       "total": 0.0
     }'
   ```
@@ -155,7 +155,7 @@ Los endpoints de órdenes permiten gestionar los pedidos del restaurante, incluy
         "user_id": "262006ea-8782-4b08-ac3b-b3f13270fec3",
         "table_id": "123e4567-e89b-12d3-a456-426614174000",
         "waiter": "Carlos López",
-        "status": "pending",
+        "status": "open",
         "total": 0.0
       },
       "dishes": [
@@ -192,7 +192,7 @@ Los endpoints de órdenes permiten gestionar los pedidos del restaurante, incluy
       "user_id": "262006ea-8782-4b08-ac3b-b3f13270fec3",
       "table_id": "123e4567-e89b-12d3-a456-426614174000",
       "waiter": "Ana Martínez",
-      "status": "completed",
+      "status": "paid",
       "total": 48.75
     }'
   ```
@@ -268,7 +268,7 @@ Los endpoints de órdenes permiten gestionar los pedidos del restaurante, incluy
 - `GET /orders/status/{status}`: Obtiene todas las órdenes con un estado específico.
   - **Authorization:** Requiere autenticación JWT.
   - **Path Parameters:**
-    - `status` (string): Estado de la orden (`pending`, `completed`, etc.).
+    - `status` (string): Estado de la orden (`open`, `closed`, `paid`).
 
 - `GET /orders/date-range`: Obtiene órdenes dentro de un rango de fechas.
   - **Authorization:** Requiere autenticación JWT.

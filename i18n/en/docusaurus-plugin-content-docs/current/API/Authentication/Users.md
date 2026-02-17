@@ -57,7 +57,7 @@ The user endpoints allow you to manage user accounts in the Ambrosia POS system.
     "name": "string",
     "pin": "string",
     "refreshToken": "string",
-    "role": "string"
+    "role": "UUID (Role ID)"
   }
   ```
   - **cURL Example:**
@@ -88,7 +88,7 @@ The user endpoints allow you to manage user accounts in the Ambrosia POS system.
     "name": "string",
     "pin": "string",
     "refreshToken": "string",
-    "role": "string"
+    "role": "UUID (Role ID)"
   }
   ```
   - **cURL Example:**

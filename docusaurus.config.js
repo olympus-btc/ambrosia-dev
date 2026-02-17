@@ -125,6 +125,10 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
+      colorMode: {
+        defaultMode: "dark",
+        respectPrefersColorScheme: true,
+      },
       // Replace with your project's social card
       image: "img/docusaurus-social-card.jpg",
       navbar: {
@@ -160,15 +164,27 @@ const config = {
         style: "dark",
         links: [
           {
-            title: "Documentacion",
+            title: "Recursos",
             items: [
               {
-                label: "API",
-                to: "/docs/API/Authentication/Auth",
+                label: "Tutorial",
+                href: "https://tutorial.ambrosiapay.com/",
               },
               {
-                label: "Phoenix",
-                to: "/docs/Script",
+                label: "Página Principal",
+                href: "https://ambrosiapay.com/en",
+              },
+              {
+                label: "GitHub",
+                href: "https://github.com/olympus-btc/ambrosia",
+              },
+              {
+                label: "Issues",
+                href: "https://github.com/olympus-btc/ambrosia/issues",
+              },
+              {
+                label: "Contribuir",
+                href: "https://github.com/olympus-btc/ambrosia/blob/main/CONTRIBUTING.md",
               },
             ],
           },
@@ -176,29 +192,16 @@ const config = {
             title: "Comunidad",
             items: [
               {
-                label: "BTCGDL",
-                href: "https://btcgdl.com/",
+                label: "Nostr",
+                href: "https://nosta.me/npub1flqcduq8q9rtqen4axufyqjngkml3kdsn4q7tgexldl2lut68k5qag4pt8?t=black",
               },
               {
-                label: "Instagram",
-                href: "https://www.instagram.com/btc.gdl/",
+                label: "X (Twitter)",
+                href: "https://x.com/AmbrosiaPoS",
               },
               {
-                label: "X",
-                href: "https://x.com/btc_ln_gdl",
-              },
-            ],
-          },
-          {
-            title: "Mas sobre nosotros",
-            items: [
-              {
-                label: "Blog",
-                to: "/blog",
-              },
-              {
-                label: "GitHub",
-                href: "https://github.com/btcgdl",
+                label: "Discord",
+                href: "https://discord.gg/ZXk2hsRpm2",
               },
             ],
           },
