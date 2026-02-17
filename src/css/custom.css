@@ -160,10 +160,97 @@
 }
 
 /* Custom Section Background */
+
 .bg--card {
+
   background: linear-gradient(180deg, var(--ambrosia-green-50), var(--ambrosia-green-100));
+
 }
 
+
+
 [data-theme="dark"] .bg--card {
+
   background:#141414;
+
+}
+
+
+
+/* Sidebar Custom Spacing and Styling */
+
+.sidebar-section-api,
+
+.sidebar-section-dev {
+
+  margin-top: 1.5rem !important;
+
+  padding-top: 1.5rem;
+
+  border-top: 1px solid var(--ambrosia-green-100);
+
+}
+
+
+
+.sidebar-section-api:first-child {
+
+  margin-top: 0 !important;
+
+  padding-top: 0;
+
+  border-top: none;
+
+}
+
+
+
+[data-theme="dark"] .sidebar-section-api,
+
+[data-theme="dark"] .sidebar-section-dev {
+
+  border-top-color: var(--ambrosia-green-900);
+
+}
+
+
+
+/* Make category labels more prominent */
+
+.sidebar-section-api > .menu__link,
+
+.sidebar-section-dev > .menu__link {
+
+  font-weight: 700 !important;
+
+  text-transform: uppercase;
+
+  font-size: 0.85rem;
+
+  letter-spacing: 0.05rem;
+
+  color: var(--ambrosia-green-800) !important;
+
+  margin-bottom: 0.5rem;
+
+}
+
+
+
+[data-theme="dark"] .sidebar-section-api > .menu__link,
+
+[data-theme="dark"] .sidebar-section-dev > .menu__link {
+
+  color: var(--ambrosia-green-200) !important;
+
+}
+
+
+
+/* Style the cards in generated-index pages */
+
+.cardList_node_modules-\@docusaurus-theme-classic-lib-theme-DocCardList-styles-module {
+
+  gap: 1.5rem;
+
 }

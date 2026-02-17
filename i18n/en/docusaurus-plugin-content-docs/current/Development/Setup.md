@@ -124,7 +124,7 @@ java -version && gradle -v | head -n1 && node -v && npm -v
    npm install
    npm run dev
    ```
-   *(See [electron/README.md](electron/README.md) for more details)*
+   *(See the [Electron README](https://github.com/olympus-btc/ambrosia/blob/main/electron/README.md) for more details)*
 
 ### Local endpoints
 - API: http://127.0.0.1:9154
@@ -177,7 +177,7 @@ Inside `server/`:
 ### E2E Tests
 
 The project includes end-to-end (E2E) tests for the server API written in Python.
-For detailed instructions, see the **[E2E Tests README](server/e2e_tests_py/README.md)**.
+For detailed instructions, see the **[E2E Tests README](https://github.com/olympus-btc/ambrosia/blob/main/server/e2e_tests_py/README.md)**.
 
 ## Pull Request Process
 

@@ -4,17 +4,17 @@ A continuación se muestra una referencia para la API de `phoenixd`, actualizada
 
 ## Seguridad
 
-⚠️ Esta API debe estar protegida. Da acceso a tus fondos. Eres responsable de protegerla. Específicamente, esta API no debe ser accesible desde el mundo exterior.
+:::danger Acceso a Fondos
+Esta API da acceso total a tus fondos de Bitcoin. Eres responsable de su seguridad. **No permitas que esta API sea accesible desde Internet.** Debe permanecer estrictamente en tu red local o protegida por un túnel seguro.
+:::
 
 La API utiliza un esquema de autenticación Básica. Las contraseñas se generan en el primer inicio (ver `~/.phoenix/phoenix.conf`).
 
-**Contraseña principal**
+:::info Gestión de Contraseñas
+**Contraseña principal (`http-password`):** Da acceso total a todos los puntos finales de la API.
 
-`http-password` es la contraseña principal y da acceso a todos los puntos finales de la API.
-
-**Contraseña secundaria**
-
-`http-password-limited-access` es menos sensible que la contraseña principal, pero aun así no debe compartirse, ya que otros ataques son posibles, por ejemplo, agotamiento de recursos creando millones de facturas, etc...
+**Contraseña secundaria (`http-password-limited-access`):** Es menos sensible que la contraseña principal, pero aun así no debe compartirse, ya que ataques como el agotamiento de recursos (creando millones de facturas) son posibles.
+:::
 
 Los siguientes puntos finales no están disponibles con esta contraseña secundaria: `payinvoice`, `payoffer`, `paylnaddress`, `lnurlpay`, `lnurlauth`, `sendtoaddress`, `closechannel`, `export`.
 

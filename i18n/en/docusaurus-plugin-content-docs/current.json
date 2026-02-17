@@ -30,5 +30,29 @@
   "sidebar.apiSidebar.category.Restaurant": {
     "message": "Restaurant",
     "description": "The label for category Restaurant in sidebar apiSidebar"
+  },
+  "sidebar.apiSidebar.category.Referencia de la API": {
+    "message": "API Reference",
+    "description": "The label for category Referencia de la API in sidebar apiSidebar"
+  },
+  "sidebar.apiSidebar.category.Referencia de la API.generated-index.title": {
+    "message": "API Reference",
+    "description": "The title of the generated-index for category Referencia de la API in sidebar apiSidebar"
+  },
+  "sidebar.apiSidebar.category.Referencia de la API.generated-index.description": {
+    "message": "Detailed technical documentation of all Ambrosia POS API endpoints and modules.",
+    "description": "The description of the generated-index for category Referencia de la API in sidebar apiSidebar"
+  },
+  "sidebar.apiSidebar.category.Portal de Desarrolladores": {
+    "message": "Developer Portal",
+    "description": "The label for category Portal de Desarrolladores in sidebar apiSidebar"
+  },
+  "sidebar.apiSidebar.category.Portal de Desarrolladores.generated-index.title": {
+    "message": "Developer Portal",
+    "description": "The title of the generated-index for category Portal de Desarrolladores in sidebar apiSidebar"
+  },
+  "sidebar.apiSidebar.category.Portal de Desarrolladores.generated-index.description": {
+    "message": "Resources, guides, and standards for contributing to the Ambrosia POS ecosystem.",
+    "description": "The description of the generated-index for category Portal de Desarrolladores in sidebar apiSidebar"
   }
 }

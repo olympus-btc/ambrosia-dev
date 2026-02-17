@@ -21,12 +21,13 @@
     }'
   ```
 
-  :::warning Required Headers
-  After a successful login, it is **mandatory** to include the received tokens (`accessToken` and `refreshToken`) in the `Cookie` header of all requests to protected endpoints.
-  
-  **Example:**
-  `Cookie: accessToken=...; refreshToken=...`
-  :::
+:::info Authentication Requirements
+After a successful login, it is **mandatory** to include the received tokens (`accessToken` and `refreshToken`) in the `Cookie` header of all requests to protected endpoints.
+
+**Example:**
+`Cookie: accessToken=...; refreshToken=...`
+:::
+
   - **Response Body (Success - 200 OK):**
   ```JSON
   {
@@ -84,8 +85,10 @@
   - **Response Headers:** The `accessToken` and `refreshToken` cookies are deleted
 
 ### Important notes:
-- Authentication is handled via HTTP cookies with JWT tokens
-- The `accessToken` has a duration of 1 minute
-- The `refreshToken` has a duration of 30 days
-- For protected endpoints, the access token is sent automatically via cookies
-- When the access token expires, use `/auth/refresh` to get a new one
+
+:::tip Best Practices
+- Authentication is handled via HTTP cookies with JWT tokens for enhanced security.
+- The `accessToken` has a short duration (1 minute) to minimize risks, while the `refreshToken` lasts 30 days.
+- For protected endpoints, the browser automatically sends the required cookies.
+- If the access token expires, the system should automatically use `/auth/refresh` to obtain a new one without interrupting the user.
+:::

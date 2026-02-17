@@ -11,7 +11,7 @@ export default function Home() {
   const { siteConfig } = useDocusaurusContext();
   return (
     <Layout
-      title={`${siteConfig.title} - Contribuye al Futuro`}
+      title={`${siteConfig.title}`}
       description="Portal de desarrolladores para Ambrosia POS. Documentación, guías y recursos para contribuir al proyecto."
     >
       <HomepageHero />

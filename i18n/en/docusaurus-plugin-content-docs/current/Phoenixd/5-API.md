@@ -4,19 +4,19 @@ Below is a reference for the `phoenixd` API, up-to-date for version `0.7.2`.
 
 ## Security
 
-⚠️ This API must be secured. It gives access to your funds. You are responsible for securing it. Specifically, this API should not be accessible from the outside world.
+:::danger Fund Access
+This API provides full access to your Bitcoin funds. You are responsible for its security. **Do not allow this API to be accessible from the Internet.** It must remain strictly within your local network or protected by a secure tunnel.
+:::
 
 The API uses a Basic authentication scheme. Passwords are generated on first start (see `~/.phoenix/phoenix.conf`).
 
-**Primary password**
+:::info Password Management
+**Primary password (`http-password`):** Provides full access to all API endpoints.
 
-`http-password` is the primary password and gives access to all the API endpoints.
+**Secondary password (`http-password-limited-access`):** Is less sensitive than the primary password, but it must still not be shared, as attacks like resource exhaustion (by creating millions of invoices) are possible.
+:::
 
-**Secondary password**
-
-`http-password-limited-access` is less sensitive than the primary password, but it must still not be shared, as other attacks are possible, e.g. resource exhaustion by creating millions of invoices, etc...
-
-The following enpoints are not available with this secondary password: `payinvoice`, `payoffer`, `paylnaddress`, `lnurlpay`, `lnurlauth`, `sendtoaddress`, `closechannel`, `export`.
+The following endpoints are not available with this secondary password: `payinvoice`, `payoffer`, `paylnaddress`, `lnurlpay`, `lnurlauth`, `sendtoaddress`, `closechannel`, `export`.
 
 ## Create Bolt11 invoice
 
