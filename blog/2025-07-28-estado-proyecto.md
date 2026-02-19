@@ -3,7 +3,7 @@ title: 'Estado Actual del Proyecto'
 description: 'El proyecto se encuentra en una fase de desarrollo activa, con una base sólida y funcional. Nuestro backend core está 100% completo.'
 slug: estado-proyecto-v0-8
 authors: [jordypirata, chekin, angel402]
-tags: [desarrollo, backend, bitcoin, lightning-network, pos]
+tags: [development, backend, bitcoin, lightning-network, pos]
 ---
 
 # 🚀 Core Backend Complete

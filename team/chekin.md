@@ -3,7 +3,7 @@ title: Alberto Vidarte
 description: Desarrollador Fullstack
 slug: alberto-vidarte
 authors: [chekin]
-tags: [fullstack, desarrollo, nextjs, kotlin, react, docusaurus]
+tags: [fullstack, development, nextjs, kotlin, react, docusaurus]
 hide_table_of_contents: true
 ---
 

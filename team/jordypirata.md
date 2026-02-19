@@ -3,7 +3,7 @@ title: Jordi Anaya
 description: Full Stack Developer | Especialista en Pagos y Ciberseguridad
 slug: jordypirata
 authors: [jordypirata]
-tags: [fullstack, desarrollo, pagos, bitcoin, dotnet, ciberseguridad, docusaurus]
+tags: [fullstack, development, payments, bitcoin, dotnet, cybersecurity, docusaurus]
 hide_table_of_contents: true
 ---
 

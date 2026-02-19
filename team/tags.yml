@@ -1,0 +1,26 @@
+# Team tags (Default: Spanish)
+
+fullstack:
+  label: Full Stack
+development:
+  label: Desarrollo
+nextjs:
+  label: Next.js
+kotlin:
+  label: Kotlin
+react:
+  label: React
+docusaurus:
+  label: Docusaurus
+payments:
+  label: Pagos
+bitcoin:
+  label: Bitcoin
+dotnet:
+  label: .NET
+cybersecurity:
+  label: Ciberseguridad
+co-founder:
+  label: Co-fundador
+web-development:
+  label: Desarrollo Web

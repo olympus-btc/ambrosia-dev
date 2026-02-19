@@ -1,0 +1,35 @@
+# Blog tags (English)
+
+security:
+  label: Security
+  description: Posts related to computer and network security.
+npm:
+  label: NPM
+  description: Node Package Manager and JavaScript package ecosystem.
+javascript:
+  label: JavaScript
+  description: Web development and applications with JavaScript.
+supply-chain:
+  label: Supply Chain
+  description: Security and management in the software supply chain.
+ambrosia:
+  label: Ambrosia
+  description: Updates and news from the Ambrosia POS ecosystem.
+bitcoin:
+  label: Bitcoin
+  description: Everything related to the Bitcoin protocol and network.
+pos:
+  label: Point of Sale
+  description: Point of sale systems and business management.
+lightning-network:
+  label: Lightning Network
+  description: Bitcoin Layer 2 for fast and cheap payments.
+welcome:
+  label: Welcome
+  description: First posts and official announcements.
+development:
+  label: Development
+  description: Development processes, tools, and methodologies.
+backend:
+  label: Backend
+  description: Server-side logic, APIs, and database development.
