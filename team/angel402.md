@@ -3,7 +3,7 @@ title: Angel Gonzalez
 description: Desarrollador de Software y Co-fundador
 slug: angel402
 authors: [angel402]
-tags: [co-fundador, fullstack, desarrollo-web]
+tags: [co-founder, fullstack, web-development]
 hide_table_of_contents: true
 ---
 

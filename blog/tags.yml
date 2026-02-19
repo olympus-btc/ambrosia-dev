@@ -1,7 +1,6 @@
-# Blog tags
+# Blog tags (Default: Spanish)
 
-# Spanish tags
-seguridad:
+security:
   label: Seguridad
   description: Publicaciones relacionadas con la seguridad informática y de la red.
 npm:
@@ -25,23 +24,12 @@ pos:
 lightning-network:
   label: Lightning Network
   description: Capa 2 de Bitcoin para pagos rápidos y baratos.
-bienvenida:
+welcome:
   label: Bienvenida
   description: Primeras publicaciones y anuncios oficiales.
-desarrollo:
+development:
   label: Desarrollo
   description: Procesos, herramientas y metodologías de desarrollo.
 backend:
   label: Backend
   description: Desarrollo de lógica de servidor, APIs y bases de datos.
-
-# English tags (for i18n support)
-security:
-  label: Security
-  description: Posts related to computer and network security.
-welcome:
-  label: Welcome
-  description: First posts and official announcements.
-development:
-  label: Development
-  description: Development processes, tools, and methodologies.

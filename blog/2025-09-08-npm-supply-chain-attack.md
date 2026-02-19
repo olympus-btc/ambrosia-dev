@@ -1,7 +1,7 @@
 ---
 title: 'Análisis de Seguridad'
 authors: jordypirata
-tags: [seguridad, npm, javascript, supply-chain]
+tags: [security, npm, javascript, supply-chain]
 date: 2025-09-08
 ---
 ## Ataque a la Cadena de Suministro en NPM y su Impacto en Ambrosia
