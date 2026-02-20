@@ -53,6 +53,7 @@ Los endpoints de wallet permiten gestionar la billetera Bitcoin Lightning integr
   curl -X GET "http://127.0.0.1:9154/wallet/getinfo" \
     -H "Cookie: accessToken=$ACCESS_TOKEN" \
     -H "Cookie: refreshToken=$REFRESH_TOKEN" \
+    -H "Cookie: walletAccessToken=$REFRESH_TOKEN" \
     -H "Content-Type: application/json"
   ```
   - **Response Body (Éxito - 200 OK):**
@@ -82,6 +83,7 @@ Los endpoints de wallet permiten gestionar la billetera Bitcoin Lightning integr
   curl -X GET "http://127.0.0.1:9154/wallet/getbalance" \
     -H "Cookie: accessToken=$ACCESS_TOKEN" \
     -H "Cookie: refreshToken=$REFRESH_TOKEN" \
+    -H "Cookie: walletAccessToken=$REFRESH_TOKEN" \
     -H "Content-Type: application/json"
   ```
   - **Response Body (Éxito - 200 OK):**
@@ -139,6 +141,7 @@ Los endpoints de wallet permiten gestionar la billetera Bitcoin Lightning integr
   curl -X POST "http://127.0.0.1:9154/wallet/payinvoice" \
     -H "Cookie: accessToken=$ACCESS_TOKEN" \
     -H "Cookie: refreshToken=$REFRESH_TOKEN" \
+    -H "Cookie: walletAccessToken=$REFRESH_TOKEN" \
     -H "Content-Type: application/json" \
     -d '{
       "amountSat": 25000,
@@ -171,6 +174,7 @@ Los endpoints de wallet permiten gestionar la billetera Bitcoin Lightning integr
   curl -X POST "http://127.0.0.1:9154/wallet/payoffer" \
     -H "Cookie: accessToken=$ACCESS_TOKEN" \
     -H "Cookie: refreshToken=$REFRESH_TOKEN" \
+    -H "Cookie: walletAccessToken=$REFRESH_TOKEN" \
     -H "Content-Type: application/json" \
     -d '{
       "amountSat": 30000,
@@ -204,6 +208,7 @@ Los endpoints de wallet permiten gestionar la billetera Bitcoin Lightning integr
   curl -X POST "http://127.0.0.1:9154/wallet/payonchain" \
     -H "Cookie: accessToken=$ACCESS_TOKEN" \
     -H "Cookie: refreshToken=$REFRESH_TOKEN" \
+    -H "Cookie: walletAccessToken=$REFRESH_TOKEN" \
     -H "Content-Type: application/json" \
     -d '{
       "amountSat": 100000,
@@ -231,6 +236,7 @@ Los endpoints de wallet permiten gestionar la billetera Bitcoin Lightning integr
   curl -X POST "http://127.0.0.1:9154/wallet/bumpfee" \
     -H "Cookie: accessToken=$ACCESS_TOKEN" \
     -H "Cookie: refreshToken=$REFRESH_TOKEN" \
+    -H "Cookie: walletAccessToken=$REFRESH_TOKEN" \
     -H "Content-Type: application/json" \
     -d '25'
   ```
@@ -259,6 +265,7 @@ Los endpoints de wallet permiten gestionar la billetera Bitcoin Lightning integr
   curl -X GET "http://127.0.0.1:9154/wallet/payments/incoming?limit=10&offset=0" \
     -H "Cookie: accessToken=$ACCESS_TOKEN" \
     -H "Cookie: refreshToken=$REFRESH_TOKEN" \
+    -H "Cookie: walletAccessToken=$REFRESH_TOKEN" \
     -H "Content-Type: application/json"
   ```
   - **Response Body (Éxito - 200 OK):**
@@ -286,6 +293,7 @@ Los endpoints de wallet permiten gestionar la billetera Bitcoin Lightning integr
   curl -X GET "http://127.0.0.1:9154/wallet/payments/incoming/abcdef1234567890" \
     -H "Cookie: accessToken=$ACCESS_TOKEN" \
     -H "Cookie: refreshToken=$REFRESH_TOKEN" \
+    -H "Cookie: walletAccessToken=$REFRESH_TOKEN" \
     -H "Content-Type: application/json"
   ```
 
@@ -302,6 +310,7 @@ Los endpoints de wallet permiten gestionar la billetera Bitcoin Lightning integr
   curl -X GET "http://127.0.0.1:9154/wallet/payments/outgoing?limit=10" \
     -H "Cookie: accessToken=$ACCESS_TOKEN" \
     -H "Cookie: refreshToken=$REFRESH_TOKEN" \
+    -H "Cookie: walletAccessToken=$REFRESH_TOKEN" \
     -H "Content-Type: application/json"
   ```
 
@@ -314,6 +323,7 @@ Los endpoints de wallet permiten gestionar la billetera Bitcoin Lightning integr
   curl -X GET "http://127.0.0.1:9154/wallet/payments/outgoing/payment-uuid-123" \
     -H "Cookie: accessToken=$ACCESS_TOKEN" \
     -H "Cookie: refreshToken=$REFRESH_TOKEN" \
+    -H "Cookie: walletAccessToken=$REFRESH_TOKEN" \
     -H "Content-Type: application/json"
   ```
 
@@ -326,6 +336,7 @@ Los endpoints de wallet permiten gestionar la billetera Bitcoin Lightning integr
   curl -X GET "http://127.0.0.1:9154/wallet/payments/outgoingbyhash/abcdef1234567890" \
     -H "Cookie: accessToken=$ACCESS_TOKEN" \
     -H "Cookie: refreshToken=$REFRESH_TOKEN" \
+    -H "Cookie: walletAccessToken=$REFRESH_TOKEN" \
     -H "Content-Type: application/json"
   ```
 
