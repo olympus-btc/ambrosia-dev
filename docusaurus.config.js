@@ -28,8 +28,9 @@ const config = {
   // If you aren't using GitHub pages, you don't need these.
   organizationName: "olympus-btc", // Usually your GitHub org/user name.
   projectName: "ambrosia-dev", // Usually your repo name.
-
   onBrokenLinks: "throw",
+  trailingSlash: true,
+  
   markdown: {
     format: "mdx",
     mermaid: true,
