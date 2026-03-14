@@ -94,6 +94,20 @@ const config = {
     ],
   ],
 
+  themes: [
+    [
+      require.resolve("@easyops-cn/docusaurus-search-local"),
+      /** @type {import("@easyops-cn/docusaurus-search-local").PluginOptions} */
+      ({
+        hashed: true,
+        language: ["es", "en"],
+        indexBlog: true,
+        searchResultLimits: 8,
+        searchResultContextMaxLength: 50,
+      }),
+    ],
+  ],
+
   plugins: [
     [
       "@docusaurus/plugin-content-blog",

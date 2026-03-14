@@ -254,3 +254,65 @@
   gap: 1.5rem;
 
 }
+
+/* Search Bar */
+
+.navbar__search-input {
+  background-color: rgba(255, 255, 255, 0.12) !important;
+  color: var(--ambrosia-green-50) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  border-radius: 6px;
+}
+
+.navbar__search-input::placeholder {
+  color: var(--ambrosia-green-200) !important;
+}
+
+.navbar__search-input:focus {
+  background-color: rgba(255, 255, 255, 0.18) !important;
+  border-color: var(--ambrosia-green-300) !important;
+}
+
+[data-theme="dark"] .navbar__search-input:focus {
+  background-color: rgba(0, 0, 0, 0.5) !important;
+  border-color: var(--ambrosia-green-500) !important;
+}
+
+.navbar__search kbd {
+  color: var(--ambrosia-green-200) !important;
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.15) !important;
+  border-radius: 3px;
+  font-size: 0.7em;
+  padding: 1px 5px;
+}
+
+[data-theme="dark"] .navbar__search kbd {
+  color: var(--ambrosia-green-400) !important;
+  background-color: rgba(0, 0, 0, 0.3) !important;
+  border-color: var(--ambrosia-green-800) !important;
+  box-shadow: inset 0 -1px 0 var(--ambrosia-green-900) !important;
+}
+
+:root {
+  --search-local-modal-background: var(--ambrosia-green-50);
+  --search-local-modal-shadow: 0 4px 20px rgba(9, 43, 24, 0.2);
+  --search-local-hit-background: #ffffff;
+  --search-local-hit-color: var(--ambrosia-green-900);
+  --search-local-hit-shadow: 0 1px 3px rgba(9, 43, 24, 0.1);
+  --search-local-highlight-color: var(--ambrosia-green-600);
+  --search-local-muted-color: var(--ambrosia-green-500);
+  --search-local-hit-active-color: #ffffff;
+}
+
+[data-theme="dark"] {
+  --search-local-modal-background: #1e1e1e;
+  --search-local-modal-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+  --search-local-hit-background: var(--ambrosia-green-950);
+  --search-local-hit-color: var(--ambrosia-green-100);
+  --search-local-hit-shadow: none;
+  --search-local-highlight-color: var(--ambrosia-green-400);
+  --search-local-muted-color: var(--ambrosia-green-600);
+  --search-local-hit-active-color: #ffffff;
+}
