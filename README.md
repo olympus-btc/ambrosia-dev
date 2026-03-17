@@ -16,6 +16,8 @@ npm start
 
 This command starts a local development server and opens up a browser window. Most changes are reflected live without having to restart the server.
 
+> **Note:** Search is not available in dev mode. To test search, run `npm run build && npm run serve` instead.
+
 ## Build
 
 ```bash
