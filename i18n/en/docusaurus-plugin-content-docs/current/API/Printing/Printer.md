@@ -2,13 +2,14 @@
 
 Endpoints for managing ticket printers.
 
-- `GET /printers`: Gets the list of available printers in the system.
+## System Printers
+
+- `GET /printers/available`: Gets the list of printers detected in the operating system.
   - **Authorization:** Requires authentication token.
   - **cURL Example:**
   ```bash
-  curl -X GET "http://127.0.0.1:9154/printers" \
-    -H "Cookie: accessToken=$ACCESS_TOKEN" \
-    -H "Cookie: refreshToken=$REFRESH_TOKEN" 
+  curl -X GET "http://127.0.0.1:9154/printers/available" \
+    -H "Cookie: accessToken=$ACCESS_TOKEN"
   ```
   - **Response Body (200 OK):**
   ```json
@@ -19,12 +20,12 @@ Endpoints for managing ticket printers.
   ]
   ```
 
-- `POST /printers/set`: Sets the printer for a specific ticket type (kitchen or customer).
+- `POST /printers/set`: Sets the active printer for a specific type by creating or updating a configuration.
   - **Authorization:** Requires authentication token.
   - **Request Body:**
   ```json
   {
-    "type": "KITCHEN" | "CUSTOMER",
+    "printerType": "KITCHEN" | "CUSTOMER" | "BAR",
     "printerName": "string"
   }
   ```
@@ -32,10 +33,9 @@ Endpoints for managing ticket printers.
   ```bash
   curl -X POST "http://127.0.0.1:9154/printers/set" \
     -H "Cookie: accessToken=$ACCESS_TOKEN" \
-    -H "Cookie: refreshToken=$REFRESH_TOKEN" \
     -H "Content-Type: application/json" \
     -d '{
-      "type": "KITCHEN",
+      "printerType": "KITCHEN",
       "printerName": "Kitchen"
     }'
   ```
@@ -44,21 +44,23 @@ Endpoints for managing ticket printers.
   "Printer Kitchen set for KITCHEN"
   ```
 
-- `POST /printers/print`: Sends a print job for a ticket.
+- `POST /printers/print`: Sends a print job.
   - **Authorization:** Requires authentication token.
   - **Request Body:**
   ```json
   {
-    "templateName": "string",
+    "templateName": "string (optional)",
     "ticketData": { ... },
-    "type": "KITCHEN" | "CUSTOMER"
+    "printerType": "KITCHEN" | "CUSTOMER" | "BAR",
+    "printerId": "string (optional, config UUID)",
+    "broadcast": false,
+    "forceTemplateName": false
   }
   ```
   - **cURL Example:**
   ```bash
   curl -X POST "http://127.0.0.1:9154/printers/print" \
     -H "Cookie: accessToken=$ACCESS_TOKEN" \
-    -H "Cookie: refreshToken=$REFRESH_TOKEN" \
     -H "Content-Type: application/json" \
     -d '{
       "templateName": "Default Customer Ticket",
@@ -68,15 +70,11 @@ Endpoints for managing ticket printers.
         "roomName": "Main Hall",
         "date": "2025-10-06",
         "items": [
-          {
-            "quantity": 2,
-            "name": "Pizza Margherita",
-            "price": 12.50
-          }
+          { "quantity": 2, "name": "Pizza Margherita", "price": 12.50 }
         ],
         "total": 25.00
       },
-      "type": "CUSTOMER"
+      "printerType": "CUSTOMER"
     }'
   ```
   - **Response Body (200 OK):**
@@ -91,3 +89,69 @@ Endpoints for managing ticket printers.
   ```text
   "Error printing: ..."
   ```
+
+## Printer Configurations
+
+- `GET /printers/configs`: Gets all saved printer configurations.
+  - **Authorization:** Requires authentication token.
+  - **cURL Example:**
+  ```bash
+  curl -X GET "http://127.0.0.1:9154/printers/configs" \
+    -H "Cookie: accessToken=$ACCESS_TOKEN"
+  ```
+  - **Response Body (200 OK):**
+  ```json
+  [
+    {
+      "id": "config-uuid",
+      "printerType": "KITCHEN",
+      "printerName": "Kitchen",
+      "templateName": null,
+      "isDefault": true,
+      "enabled": true,
+      "createdAt": "2025-10-06T12:00:00Z"
+    }
+  ]
+  ```
+
+- `POST /printers/configs`: Creates a new printer configuration.
+  - **Authorization:** Requires authentication token.
+  - **Request Body:**
+  ```json
+  {
+    "printerType": "KITCHEN" | "CUSTOMER" | "BAR",
+    "printerName": "string",
+    "templateName": "string (optional)",
+    "isDefault": false,
+    "enabled": true
+  }
+  ```
+  - **Response Body (201 Created):**
+  ```json
+  { "id": "new-config-uuid" }
+  ```
+
+- `PUT /printers/configs/{id}`: Updates a printer configuration. All fields are optional.
+  - **Authorization:** Requires authentication token.
+  - **Path Parameters:** `id` (string): Configuration ID
+  - **Request Body:**
+  ```json
+  {
+    "printerType": "KITCHEN" | "CUSTOMER" | "BAR",
+    "printerName": "string",
+    "templateName": "string",
+    "isDefault": false,
+    "enabled": true
+  }
+  ```
+  - **Response Body (200 OK)**
+
+- `DELETE /printers/configs/{id}`: Deletes a printer configuration.
+  - **Authorization:** Requires authentication token.
+  - **Path Parameters:** `id` (string): Configuration ID
+  - **Response Body (204 No Content)**
+
+- `POST /printers/configs/{id}/default`: Sets a configuration as the default printer for its type.
+  - **Authorization:** Requires authentication token.
+  - **Path Parameters:** `id` (string): Configuration ID
+  - **Response Body (200 OK)**

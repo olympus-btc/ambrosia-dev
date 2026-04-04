@@ -19,19 +19,96 @@ General endpoints of the Ambrosia POS system that provide basic information and 
   "Root path of the API Nothing to see here"
   ```
 
-## System Configuration
+## Health
 
-- `GET /base-currency`: Gets the base currency of the system.
+- `GET /api/health`: Checks that the server is running.
   - **Authorization:** No authentication required
   - **cURL Example:**
   ```bash
-  curl -X GET "http://127.0.0.1:9154/base-currency"
+  curl -X GET "http://127.0.0.1:9154/api/health"
   ```
   - **Response Body (200 OK):**
   ```json
   {
-    "currency_id": "beb95c15-cdcb-47c3-beba-5a47f360b999"
+    "status": "healthy",
+    "timestamp": "1712150400000"
   }
+  ```
+
+## Initial Setup
+
+These endpoints manage the first-run setup process. Only relevant on the first boot.
+
+- `GET /initial-setup`: Checks whether the system has already been initialized.
+  - **Authorization:** No authentication required
+  - **cURL Example:**
+  ```bash
+  curl -X GET "http://127.0.0.1:9154/initial-setup"
+  ```
+  - **Response Body (200 OK):**
+  ```json
+  {
+    "initialized": false,
+    "needsBusinessType": false
+  }
+  ```
+
+- `POST /initial-setup`: Runs the initial system setup — creates the admin role, the first user, and saves business data. If the system was already initialized but the business type was not confirmed, this endpoint handles that too.
+  - **Authorization:** No authentication required
+  - **Request Body (first-time setup):**
+  ```json
+  {
+    "businessType": "restaurant",
+    "businessName": "My Business",
+    "businessCurrency": "USD",
+    "userName": "admin",
+    "userPassword": "S3cur3P4ssw0rd!!",
+    "userPin": "1234",
+    "businessAddress": "string (optional)",
+    "businessPhone": "string (optional)",
+    "businessEmail": "string (optional)",
+    "businessTaxId": "string (optional)",
+    "businessLogoUrl": "string (optional)"
+  }
+  ```
+  - **Request Body (confirm business type only):**
+  ```json
+  {
+    "businessType": "store"
+  }
+  ```
+  - **cURL Example:**
+  ```bash
+  curl -X POST "http://127.0.0.1:9154/initial-setup" \
+    -H "Content-Type: application/json" \
+    -d '{
+      "businessType": "restaurant",
+      "businessName": "My Restaurant",
+      "businessCurrency": "USD",
+      "userName": "admin",
+      "userPassword": "S3cur3P4ssw0rd!!",
+      "userPin": "1234"
+    }'
+  ```
+  - **Response Body (201 Created):**
+  ```json
+  {
+    "message": "Initial setup completed",
+    "userId": "uuid",
+    "roleId": "uuid"
+  }
+  ```
+  - **Response Body (400 Bad Request):** missing data or invalid business type
+  ```json
+  { "message": "Invalid business type" }
+  ```
+  - **Response Body (404 Not Found):** unknown currency acronym
+  ```json
+  { "message": "Unknown currency acronym: XYZ" }
+  ```
+  - **Response Body (409 Conflict):** system already initialized
+  ```json
+  { "message": "Initial setup already completed" }
   ```
 
 ## API Documentation

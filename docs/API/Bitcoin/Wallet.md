@@ -340,6 +340,32 @@ Los endpoints de wallet permiten gestionar la billetera Bitcoin Lightning integr
     -H "Content-Type: application/json"
   ```
 
+### WebSocket de Pagos en Tiempo Real
+
+- `GET /ws/payments`: Conexión WebSocket para recibir notificaciones de pagos Lightning en tiempo real.
+  - **Authorization:** Requiere access token válido (JWT via cookie)
+  - **Protocol:** WebSocket (`ws://` o `wss://`)
+  - **Ejemplo de conexión:**
+  ```javascript
+  const ws = new WebSocket("ws://127.0.0.1:9154/ws/payments");
+  ws.onmessage = (event) => console.log(JSON.parse(event.data));
+  ```
+  - **Mensaje de conexión establecida:**
+  ```json
+  { "type": "connected" }
+  ```
+  - **Mensaje de pago recibido:**
+  ```json
+  {
+    "type": "payment_received",
+    "timestamp": 1712150400000,
+    "amountSat": 50000,
+    "paymentHash": "abcdef1234567890",
+    "externalId": "order-123",
+    "payerNote": "Pago orden #123"
+  }
+  ```
+
 ### Notas importantes:
 - Los endpoints requieren autenticación JWT a través de cookies (accessToken)
 - Solo `/createinvoice` está disponible para usuarios autenticados, el resto requiere permisos de admin

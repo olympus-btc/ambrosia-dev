@@ -21,7 +21,7 @@ The role endpoints allow you to manage the different user roles in the system.
     }
   ]
   ```
-  - **Response Body (No Content - 204 No Content):**
+  - **Response Body (No roles - 200 OK):**
   ```json
   "No roles found"
   ```
@@ -75,6 +75,10 @@ The role endpoints allow you to manage the different user roles in the system.
     "message": "Role added successfully"
   }
   ```
+  - **Response Body (Error - 400 Bad Request):** blank or invalid role name
+  ```json
+  "Invalid role data"
+  ```
 
 - `PUT /roles/{id}`: Updates an existing role.
   - **Authorization:** Requires a valid access token (admin)
@@ -102,7 +106,18 @@ The role endpoints allow you to manage the different user roles in the system.
   ```
   - **Response Body (Success - 200 OK):**
   ```json
-  "Role updated successfully"
+  {
+    "id": "76ee1086-b945-4170-b2e6-9fbeb95ae0be",
+    "message": "Role updated successfully"
+  }
+  ```
+  - **Response Body (Error - 400 Bad Request):** blank or invalid role name
+  ```json
+  "Invalid role data"
+  ```
+  - **Response Body (Error - 404 Not Found):** role not found
+  ```json
+  "Role with ID: {id} not found"
   ```
 
 - `DELETE /roles/{id}`: Deletes a role from the system.
@@ -176,4 +191,5 @@ The role endpoints allow you to manage the different user roles in the system.
 - All role endpoints require authentication via access token
 - Role IDs must be unique in the system
 - Deleting a role may affect users who are assigned that role
-- The `id` and `name` fields are required to create/update roles
+- The `role` (name) field is required and cannot be blank on create or update
+- A role can be created or edited without any permissions assigned

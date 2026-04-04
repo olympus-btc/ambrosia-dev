@@ -3,12 +3,10 @@
 Los endpoints de usuarios permiten gestionar las cuentas de usuario en el sistema Ambrosia POS.
 
 - `GET /users`: Obtiene todos los usuarios del sistema.
-  - **Authorization:** Requiere access token válido
+  - **Authorization:** Ninguna (público)
   - **cURL Example:**
   ```bash
-  curl -X GET "http://127.0.0.1:9154/users" \
-    -H "Cookie: accessToken=$ACCESS_TOKEN" \
-    -H "Cookie: refreshToken=$REFRESH_TOKEN" 
+  curl -X GET "http://127.0.0.1:9154/users"
   ```
   - **Response Body (Éxito - 200 OK):**
   ```json
@@ -17,8 +15,11 @@ Los endpoints de usuarios permiten gestionar las cuentas de usuario en el sistem
       "id": "e911705c-e1b4-4997-ab02-ef7460491ac0",
       "name": "cooluser1",
       "pin": "****",
-      "refreshToken": "****",
-      "role": "e7349203-1bdf-4d8a-8a83-0f5dccb23e1b",
+      "refreshToken": null,
+      "role": null,
+      "roleId": "e7349203-1bdf-4d8a-8a83-0f5dccb23e1b",
+      "email": null,
+      "phone": null,
       "isAdmin": false
     }
   ]
@@ -29,14 +30,12 @@ Los endpoints de usuarios permiten gestionar las cuentas de usuario en el sistem
   ```
 
 - `GET /users/{id}`: Obtiene un usuario específico por su ID.
-  - **Authorization:** Requiere access token válido (admin)
+  - **Authorization:** Ninguna (público)
   - **Path Parameters:**
     - `id` (string): ID del usuario a obtener
   - **cURL Example:**
   ```bash
-  curl -X GET "http://127.0.0.1:9154/users/76ee1086-b945-4170-b2e6-9fbeb95ae0be" \
-    -H "Cookie: accessToken=$ACCESS_TOKEN" \
-    -H "Cookie: refreshToken=$REFRESH_TOKEN" 
+  curl -X GET "http://127.0.0.1:9154/users/76ee1086-b945-4170-b2e6-9fbeb95ae0be"
   ```
   - **Response Body (Éxito - 200 OK):**
   ```json
@@ -44,42 +43,69 @@ Los endpoints de usuarios permiten gestionar las cuentas de usuario en el sistem
     "id": "76ee1086-b945-4170-b2e6-9fbeb95ae0be",
     "name": "admin",
     "pin": "****",
-    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
-    "role": "262006ea-8782-4b08-ac3b-b3f13270fec3"
+    "refreshToken": null,
+    "role": null,
+    "roleId": "262006ea-8782-4b08-ac3b-b3f13270fec3",
+    "email": "admin@ambrosia.com",
+    "phone": null,
+    "isAdmin": true
+  }
+  ```
+
+- `GET /users/me`: Obtiene el usuario autenticado actualmente, junto con sus permisos.
+  - **Authorization:** Requiere access token válido
+  - **cURL Example:**
+  ```bash
+  curl -X GET "http://127.0.0.1:9154/users/me" \
+    -H "Cookie: accessToken=$ACCESS_TOKEN"
+  ```
+  - **Response Body (Éxito - 200 OK):**
+  ```json
+  {
+    "user": {
+      "id": "76ee1086-b945-4170-b2e6-9fbeb95ae0be",
+      "name": "admin",
+      "pin": "****",
+      "roleId": "262006ea-8782-4b08-ac3b-b3f13270fec3",
+      "isAdmin": true
+    },
+    "perms": [
+      { "id": "perm-uuid", "name": "orders_read", "description": null, "enabled": true }
+    ]
   }
   ```
 
 - `POST /users`: Crea un nuevo usuario en el sistema.
-  - **Authorization:** Requiere access token válido (admin)
+  - **Authorization:** Requiere `users_create`
   - **Request Body:**
   ```json
   {
     "name": "string",
-    "pin": "string",
-    "refreshToken": "string",
-    "role": "UUID (ID del rol)"
+    "pin": "string (mínimo 4 caracteres)",
+    "roleId": "UUID (ID del rol)",
+    "email": "string (opcional)",
+    "phone": "string (opcional)",
+    "isAdmin": false
   }
   ```
   - **cURL Example:**
   ```bash
   curl -X POST "http://127.0.0.1:9154/users" \
     -H "Cookie: accessToken=$ACCESS_TOKEN" \
-    -H "Cookie: refreshToken=$REFRESH_TOKEN" \
     -H "Content-Type: application/json" \
     -d '{
       "name": "newuser",
       "pin": "1234",
-      "refreshToken": null,
-      "role": "262006ea-8782-4b08-ac3b-b3f13270fec3"
+      "roleId": "262006ea-8782-4b08-ac3b-b3f13270fec3"
     }'
   ```
   - **Response Body (Éxito - 201 Created):**
   ```json
-  "User added successfully"
+  { "id": "new-user-uuid", "message": "User added successfully" }
   ```
 
-- `PUT /users/{id}`: Actualiza un usuario existente.
-  - **Authorization:** Requiere access token válido (admin)
+- `PUT /users/{id}`: Actualiza un usuario existente. Todos los campos son opcionales.
+  - **Authorization:** Requiere `users_update`
   - **Path Parameters:**
     - `id` (string): ID del usuario a actualizar
   - **Request Body:**
@@ -87,46 +113,41 @@ Los endpoints de usuarios permiten gestionar las cuentas de usuario en el sistem
   {
     "name": "string",
     "pin": "string",
-    "refreshToken": "string",
-    "role": "string"
+    "roleId": "UUID (ID del rol)",
+    "email": "string",
+    "phone": "string",
+    "refreshToken": "string"
   }
   ```
   - **cURL Example:**
   ```bash
-  curl -X PUT "http://197.0.0.1:9154/users/76ee1086-b945-4170-b2e6-9fbeb95ae0be" \
+  curl -X PUT "http://127.0.0.1:9154/users/76ee1086-b945-4170-b2e6-9fbeb95ae0be" \
     -H "Cookie: accessToken=$ACCESS_TOKEN" \
-    -H "Cookie: refreshToken=$REFRESH_TOKEN" \
     -H "Content-Type: application/json" \
     -d '{
       "name": "updateduser",
       "pin": "5678",
-      "refreshToken": "new-refresh-token",
-      "role": "262006ea-8782-4b08-ac3b-b3f13270fec3"
+      "roleId": "262006ea-8782-4b08-ac3b-b3f13270fec3"
     }'
   ```
   - **Response Body (Éxito - 200 OK):**
   ```json
-  "User updated successfully"
+  { "id": "76ee1086-b945-4170-b2e6-9fbeb95ae0be", "message": "User updated successfully" }
   ```
 
 - `DELETE /users/{id}`: Elimina un usuario del sistema.
-  - **Authorization:** Requiere access token válido (admin)
+  - **Authorization:** Requiere `users_delete`
   - **Path Parameters:**
     - `id` (string): ID del usuario a eliminar
   - **cURL Example:**
   ```bash
-  curl -X DELETE "http://197.0.0.1:9154/users/76ee1086-b945-4170-b2e6-9fbeb95ae0be" \
-    -H "Cookie: accessToken=$ACCESS_TOKEN" \
-    -H "Cookie: refreshToken=$REFRESH_TOKEN" \
+  curl -X DELETE "http://127.0.0.1:9154/users/76ee1086-b945-4170-b2e6-9fbeb95ae0be" \
+    -H "Cookie: accessToken=$ACCESS_TOKEN"
   ```
-  - **Response Body (Éxito - 204 No Content):**
-  ```json
-  "User deleted successfully"
-  ```
+  - **Response Body (Éxito - 204 No Content)**
 
 ### Notas importantes:
-- Todos los endpoints de usuarios requieren autenticación 
+- `GET /users` y `GET /users/{id}` son públicos (sin autenticación)
 - Los IDs de usuarios son UUID generados automáticamente
-- El campo `role` debe ser un UUID de un rol existente en el sistema
-- El PIN se almacena hasheado y se devuelve enmascarado como "****" por seguridad
-- El campo `refreshToken` es opcional y puede ser `null`
+- Usar `roleId` (UUID) para asignar rol al crear o actualizar un usuario
+- El PIN se almacena hasheado y se devuelve enmascarado como `"****"` por seguridad; mínimo 4 caracteres

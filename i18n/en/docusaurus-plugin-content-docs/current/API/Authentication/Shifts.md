@@ -57,30 +57,42 @@ The shift endpoints allow you to manage the work schedules of the restaurant sta
   }
   ```
 
+- `GET /shifts/open`: Gets the currently open shift.
+  - **Authorization:** Requires `shifts_read`
+  - **Query Parameters:**
+    - `user_id` (string, optional): Filter by specific user
+  - **cURL Example:**
+  ```bash
+  curl -X GET "http://127.0.0.1:9154/shifts/open?user_id=ac5f7527-3c9a-4d89-9133-ee5d8fde631e" \
+    -H "Cookie: accessToken=$ACCESS_TOKEN"
+  ```
+  - **Response Body (Success - 200 OK):** `Shift` object of the open shift
+  - **Response Body (No open shift - 204 No Content)**
+
 - `POST /shifts`: Creates a new shift.
-  - **Authorization:** Requires a valid access token (admin)
+  - **Authorization:** Requires `shifts_create`
   - **Request Body:**
   ```json
   {
     "user_id": "string",
     "shift_date": "Unix Timestamp",
-    "start_time": "Unix Timestamp ",
-    "end_time": "Unix Timestamp ",
-    "notes": "string"
+    "start_time": "Unix Timestamp",
+    "end_time": "Unix Timestamp (optional)",
+    "notes": "string",
+    "initial_amount": 0.0
   }
   ```
   - **cURL Example:**
   ```bash
   curl -X POST "http://127.0.0.1:9154/shifts" \
     -H "Cookie: accessToken=$ACCESS_TOKEN" \
-    -H "Cookie: refreshToken=$REFRESH_TOKEN" \
     -H "Content-Type: application/json" \
     -d '{
       "user_id": "ac5f7527-3c9a-4d89-9133-ee5d8fde631e",
       "shift_date": "1753523565371",
       "start_time": "1753523565371",
-      "end_time": "1753549837824",
-      "notes": "Morning shift"
+      "notes": "Morning shift",
+      "initial_amount": 500.00
     }'
   ```
   - **Response Body (Success - 201 Created):**
@@ -92,7 +104,7 @@ The shift endpoints allow you to manage the work schedules of the restaurant sta
   ```
 
 - `PUT /shifts/{id}`: Updates an existing shift.
-  - **Authorization:** Requires a valid access token (admin)
+  - **Authorization:** Requires `shifts_update`
   - **Path Parameters:**
     - `id` (string): ID of the shift to update
   - **Request Body:**
@@ -100,23 +112,26 @@ The shift endpoints allow you to manage the work schedules of the restaurant sta
   {
     "user_id": "string",
     "shift_date": "Unix Timestamp",
-    "start_time": "Unix Timestamp ",
-    "end_time": "Unix Timestamp ",
-    "notes": "string"
+    "start_time": "Unix Timestamp",
+    "end_time": "Unix Timestamp (optional)",
+    "notes": "string",
+    "initial_amount": 0.0,
+    "final_amount": 0.0,
+    "difference": 0.0
   }
   ```
   - **cURL Example:**
   ```bash
   curl -X PUT "http://127.0.0.1:9154/shifts/0e5805f1-ff25-4c9d-823b-cacc81eb31db" \
     -H "Cookie: accessToken=$ACCESS_TOKEN" \
-    -H "Cookie: refreshToken=$REFRESH_TOKEN" \
     -H "Content-Type: application/json" \
     -d '{
       "user_id": "03978988-42ff-4cb9-a790-c51aceb39b2b",
       "shift_date": "1753523565371",
       "start_time": "1753523565371",
       "end_time": "1753549837824",
-      "notes": "Shift extended for special events"
+      "notes": "Shift extended for special events",
+      "initial_amount": 500.00
     }'
   ```
   - **Response Body (Success - 200 OK):**
@@ -124,6 +139,32 @@ The shift endpoints allow you to manage the work schedules of the restaurant sta
   {
     "id": "0e5805f1-ff25-4c9d-823b-cacc81eb31db",
     "message": "Shift updated successfully"
+  }
+  ```
+
+- `POST /shifts/{id}/close`: Closes an open shift.
+  - **Authorization:** Requires `shifts_update`
+  - **Path Parameters:**
+    - `id` (string): ID of the shift to close
+  - **Request Body (optional):**
+  ```json
+  {
+    "final_amount": 520.00,
+    "difference": 20.00
+  }
+  ```
+  - **cURL Example:**
+  ```bash
+  curl -X POST "http://127.0.0.1:9154/shifts/0e5805f1-ff25-4c9d-823b-cacc81eb31db/close" \
+    -H "Cookie: accessToken=$ACCESS_TOKEN" \
+    -H "Content-Type: application/json" \
+    -d '{ "final_amount": 520.00, "difference": 20.00 }'
+  ```
+  - **Response Body (Success - 200 OK):**
+  ```json
+  {
+    "id": "0e5805f1-ff25-4c9d-823b-cacc81eb31db",
+    "message": "Shift closed successfully"
   }
   ```
 
@@ -135,7 +176,7 @@ The shift endpoints allow you to manage the work schedules of the restaurant sta
   ```bash
   curl -X DELETE "http://127.0.0.1:9154/shifts/03978988-42ff-4cb9-a790-c51aceb39b2b" \
     -H "Cookie: accessToken=$ACCESS_TOKEN" \
-    -H "Cookie: refreshToken=$REFRESH_TOKEN" 
+    -H "Cookie: refreshToken=$REFRESH_TOKEN"
   ```
   - **Response Body (Success - 200 OK):**
   ```json

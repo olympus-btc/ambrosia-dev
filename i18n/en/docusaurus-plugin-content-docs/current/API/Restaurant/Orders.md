@@ -255,6 +255,37 @@ The order endpoints allow you to manage the restaurant's orders, including the a
 
 ### Filters and Additional Actions
 
+- `GET /orders/with-payments`: Gets orders along with payment information. Supports filters via query params.
+  - **Authorization:** Requires JWT authentication.
+  - **Query Parameters (all optional):**
+    - `start_date` / `end_date` (string, YYYY-MM-DD)
+    - `status` (string)
+    - `user_id` (string)
+    - `payment_method` (string)
+    - `min_total` / `max_total` (number)
+    - `sort_by` (string)
+    - `sort_order` (`asc` | `desc`)
+  - **cURL Example:**
+  ```bash
+  curl -X GET "http://127.0.0.1:9154/orders/with-payments?status=paid&start_date=2025-01-01&end_date=2025-01-31" \
+    -H "Cookie: accessToken=$ACCESS_TOKEN"
+  ```
+  - **Response Body (200 OK):**
+  ```json
+  [
+    {
+      "id": "order-uuid",
+      "user_id": "user-uuid",
+      "table_id": null,
+      "waiter": "Juan Perez",
+      "status": "paid",
+      "total": 45.50,
+      "created_at": "2025-01-15T14:30:00Z",
+      "payment_method": "Cash"
+    }
+  ]
+  ```
+
 - `GET /orders/user/{userId}`: Gets all the orders of a specific user.
   - **Authorization:** Requires JWT authentication.
   - **Path Parameters:**

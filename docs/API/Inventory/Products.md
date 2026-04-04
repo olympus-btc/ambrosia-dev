@@ -20,8 +20,10 @@ Los endpoints de productos permiten crear, consultar, actualizar y eliminar prod
       "description": "Taza de café 240ml",
       "image_url": null,
       "cost_cents": 5000,
-      "category_id": "9f5c...",
+      "category_ids": ["9f5c..."],
       "quantity": 10,
+      "min_stock_threshold": 5,
+      "max_stock_threshold": 100,
       "price_cents": 25000
     }
   ]
@@ -42,7 +44,7 @@ Los endpoints de productos permiten crear, consultar, actualizar y eliminar prod
   ```
 
 - `POST /products`: Crea un nuevo producto.
-  - **Authorization:** Requiere access token válido
+  - **Authorization:** Requiere `products_create`
   - **Request Body:**
   ```json
   {
@@ -51,8 +53,10 @@ Los endpoints de productos permiten crear, consultar, actualizar y eliminar prod
     "description": "Taza de café 240ml",
     "image_url": null,
     "cost_cents": 5000,
-    "category_id": "9f5c...",
+    "category_ids": ["9f5c..."],
     "quantity": 10,
+    "min_stock_threshold": 5,
+    "max_stock_threshold": 100,
     "price_cents": 25000
   }
   ```
@@ -61,15 +65,16 @@ Los endpoints de productos permiten crear, consultar, actualizar y eliminar prod
   curl -X POST http://127.0.0.1:9154/products \
     -H 'Content-Type: application/json' \
     -H "Cookie: accessToken=$ACCESS_TOKEN" \
-    -H "Cookie: refreshToken=$REFRESH_TOKEN" \
     -d '{
       "SKU": "SKU-0001",
       "name": "Café americano",
       "description": "Taza de café 240ml",
       "image_url": null,
       "cost_cents": 5000,
-      "category_id": "9f5c...",
+      "category_ids": ["9f5c..."],
       "quantity": 10,
+      "min_stock_threshold": 5,
+      "max_stock_threshold": 100,
       "price_cents": 25000
     }'
   ```
@@ -79,7 +84,7 @@ Los endpoints de productos permiten crear, consultar, actualizar y eliminar prod
   ```
 
 - `PUT /products/{id}`: Actualiza un producto existente.
-  - **Authorization:** Requiere access token válido
+  - **Authorization:** Requiere `products_update`
   - **Path Parameters:** `id` (string)
   - **Request Body:** Igual al de creación, con los campos actualizados.
   - **Response Body (Éxito - 200 OK):**
@@ -87,14 +92,33 @@ Los endpoints de productos permiten crear, consultar, actualizar y eliminar prod
   { "id": "b5a6...", "message": "Product updated successfully" }
   ```
 
-- `DELETE /products/{id}`: Elimina (lógico) un producto.
-  - **Authorization:** Requiere access token válido
-  - **Path Parameters:** `id` (string)
-  - **Response Body (Éxito - 204 No Content):**
+- `POST /products/stock`: Ajusta el stock de uno o más productos.
+  - **Authorization:** Requiere `orders_create`
+  - **Request Body:** Array de ajustes. `quantity` puede ser negativo para decrementar.
   ```json
-  { "id": "b5a6...", "message": "Product deleted successfully" }
+  [
+    { "product_id": "b5a6...", "quantity": 10 },
+    { "product_id": "c7d8...", "quantity": -3 }
+  ]
+  ```
+  - **cURL Example:**
+  ```bash
+  curl -X POST http://127.0.0.1:9154/products/stock \
+    -H 'Content-Type: application/json' \
+    -H "Cookie: accessToken=$ACCESS_TOKEN" \
+    -d '[{ "product_id": "b5a6...", "quantity": 10 }]'
+  ```
+  - **Response Body (Éxito - 200 OK):**
+  ```json
+  { "message": "Stock updated successfully" }
   ```
 
+- `DELETE /products/{id}`: Elimina (lógico) un producto.
+  - **Authorization:** Requiere `products_delete`
+  - **Path Parameters:** `id` (string)
+  - **Response Body (Éxito - 204 No Content)**
+
 ### Notas
-- Los campos `SKU`, `name`, `cost_cents`, `price_cents`, `quantity` y `category_id` son requeridos.
+- Los campos requeridos son: `SKU`, `name`, `cost_cents`, `price_cents`, `quantity`, `min_stock_threshold`, `max_stock_threshold`.
+- `category_ids` es un array de UUIDs (puede estar vacío).
 - El borrado es lógico (`is_deleted = 1`).
