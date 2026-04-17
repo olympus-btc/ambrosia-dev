@@ -95,10 +95,11 @@ Los endpoints de órdenes permiten gestionar los pedidos del restaurante, incluy
   ```json
   {
     "user_id": "string",
-    "table_id": "string",
+    "table_id": "string (opcional)",
     "waiter": "string",
     "status": "open | closed | paid",
-    "total": 0.0
+    "total": 0.0,
+    "created_at": "ISO 8601 (e.g. 2025-01-15T14:30:00Z)"
   }
   ```
   - **cURL Example:**
@@ -254,6 +255,37 @@ Los endpoints de órdenes permiten gestionar los pedidos del restaurante, incluy
   - **Authorization:** Requiere autenticación JWT (enviado automáticamente via cookies)
 
 ### Filtros y Acciones Adicionales
+
+- `GET /orders/with-payments`: Obtiene órdenes junto con información de pago. Soporta filtros por query params.
+  - **Authorization:** Requiere autenticación JWT.
+  - **Query Parameters (todos opcionales):**
+    - `start_date` / `end_date` (string, YYYY-MM-DD)
+    - `status` (string)
+    - `user_id` (string)
+    - `payment_method` (string)
+    - `min_total` / `max_total` (number)
+    - `sort_by` (string)
+    - `sort_order` (`asc` | `desc`)
+  - **cURL Example:**
+  ```bash
+  curl -X GET "http://127.0.0.1:9154/orders/with-payments?status=paid&start_date=2025-01-01&end_date=2025-01-31" \
+    -H "Cookie: accessToken=$ACCESS_TOKEN"
+  ```
+  - **Response Body (200 OK):**
+  ```json
+  [
+    {
+      "id": "order-uuid",
+      "user_id": "user-uuid",
+      "table_id": null,
+      "waiter": "Juan Pérez",
+      "status": "paid",
+      "total": 45.50,
+      "created_at": "2025-01-15T14:30:00Z",
+      "payment_method": "Efectivo"
+    }
+  ]
+  ```
 
 - `GET /orders/user/{userId}`: Obtiene todas las órdenes de un usuario específico.
   - **Authorization:** Requiere autenticación JWT.

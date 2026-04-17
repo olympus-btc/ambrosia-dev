@@ -2,13 +2,14 @@
 
 Endpoints para gestionar las impresoras de tickets.
 
-- `GET /printers`: Obtiene la lista de impresoras disponibles en el sistema.
+## Impresoras del Sistema
+
+- `GET /printers/available`: Obtiene la lista de impresoras detectadas en el sistema operativo.
   - **Authorization:** Requiere token de autenticación.
   - **cURL Example:**
   ```bash
-  curl -X GET "http://127.0.0.1:9154/printers" \
-    -H "Cookie: accessToken=$ACCESS_TOKEN" \
-    -H "Cookie: refreshToken=$REFRESH_TOKEN" 
+  curl -X GET "http://127.0.0.1:9154/printers/available" \
+    -H "Cookie: accessToken=$ACCESS_TOKEN"
   ```
   - **Response Body (200 OK):**
   ```json
@@ -19,12 +20,12 @@ Endpoints para gestionar las impresoras de tickets.
   ]
   ```
 
-- `POST /printers/set`: Establece la impresora para un tipo de ticket específico (cocina o cliente).
+- `POST /printers/set`: Establece la impresora activa para un tipo específico creando o actualizando una configuración.
   - **Authorization:** Requiere token de autenticación.
   - **Request Body:**
   ```json
   {
-    "type": "KITCHEN" | "CUSTOMER",
+    "printerType": "KITCHEN" | "CUSTOMER" | "BAR",
     "printerName": "string"
   }
   ```
@@ -32,10 +33,9 @@ Endpoints para gestionar las impresoras de tickets.
   ```bash
   curl -X POST "http://127.0.0.1:9154/printers/set" \
     -H "Cookie: accessToken=$ACCESS_TOKEN" \
-    -H "Cookie: refreshToken=$REFRESH_TOKEN" \
     -H "Content-Type: application/json" \
     -d '{
-      "type": "KITCHEN",
+      "printerType": "KITCHEN",
       "printerName": "Cocina"
     }'
   ```
@@ -44,21 +44,23 @@ Endpoints para gestionar las impresoras de tickets.
   "Printer Cocina set for KITCHEN"
   ```
 
-- `POST /printers/print`: Envía un trabajo de impresión para un ticket.
+- `POST /printers/print`: Envía un trabajo de impresión.
   - **Authorization:** Requiere token de autenticación.
   - **Request Body:**
   ```json
   {
-    "templateName": "string",
+    "templateName": "string (opcional)",
     "ticketData": { ... },
-    "type": "KITCHEN" | "CUSTOMER"
+    "printerType": "KITCHEN" | "CUSTOMER" | "BAR",
+    "printerId": "string (opcional, UUID de config)",
+    "broadcast": false,
+    "forceTemplateName": false
   }
   ```
   - **cURL Example:**
   ```bash
   curl -X POST "http://127.0.0.1:9154/printers/print" \
     -H "Cookie: accessToken=$ACCESS_TOKEN" \
-    -H "Cookie: refreshToken=$REFRESH_TOKEN" \
     -H "Content-Type: application/json" \
     -d '{
       "templateName": "Default Customer Ticket",
@@ -68,15 +70,11 @@ Endpoints para gestionar las impresoras de tickets.
         "roomName": "Salón Principal",
         "date": "2025-10-06",
         "items": [
-          {
-            "quantity": 2,
-            "name": "Pizza Margherita",
-            "price": 12.50
-          }
+          { "quantity": 2, "name": "Pizza Margherita", "price": 12.50 }
         ],
         "total": 25.00
       },
-      "type": "CUSTOMER"
+      "printerType": "CUSTOMER"
     }'
   ```
   - **Response Body (200 OK):**
@@ -91,3 +89,69 @@ Endpoints para gestionar las impresoras de tickets.
   ```text
   "Error printing: ..."
   ```
+
+## Configuraciones de Impresoras
+
+- `GET /printers/configs`: Obtiene todas las configuraciones de impresoras guardadas.
+  - **Authorization:** Requiere token de autenticación.
+  - **cURL Example:**
+  ```bash
+  curl -X GET "http://127.0.0.1:9154/printers/configs" \
+    -H "Cookie: accessToken=$ACCESS_TOKEN"
+  ```
+  - **Response Body (200 OK):**
+  ```json
+  [
+    {
+      "id": "config-uuid",
+      "printerType": "KITCHEN",
+      "printerName": "Cocina",
+      "templateName": null,
+      "isDefault": true,
+      "enabled": true,
+      "createdAt": "2025-10-06T12:00:00Z"
+    }
+  ]
+  ```
+
+- `POST /printers/configs`: Crea una nueva configuración de impresora.
+  - **Authorization:** Requiere token de autenticación.
+  - **Request Body:**
+  ```json
+  {
+    "printerType": "KITCHEN" | "CUSTOMER" | "BAR",
+    "printerName": "string",
+    "templateName": "string (opcional)",
+    "isDefault": false,
+    "enabled": true
+  }
+  ```
+  - **Response Body (201 Created):**
+  ```json
+  { "id": "new-config-uuid" }
+  ```
+
+- `PUT /printers/configs/{id}`: Actualiza una configuración de impresora. Todos los campos son opcionales.
+  - **Authorization:** Requiere token de autenticación.
+  - **Path Parameters:** `id` (string): ID de la configuración
+  - **Request Body:**
+  ```json
+  {
+    "printerType": "KITCHEN" | "CUSTOMER" | "BAR",
+    "printerName": "string",
+    "templateName": "string",
+    "isDefault": false,
+    "enabled": true
+  }
+  ```
+  - **Response Body (200 OK)**
+
+- `DELETE /printers/configs/{id}`: Elimina una configuración de impresora.
+  - **Authorization:** Requiere token de autenticación.
+  - **Path Parameters:** `id` (string): ID de la configuración
+  - **Response Body (204 No Content)**
+
+- `POST /printers/configs/{id}/default`: Establece una configuración como impresora predeterminada para su tipo.
+  - **Authorization:** Requiere token de autenticación.
+  - **Path Parameters:** `id` (string): ID de la configuración
+  - **Response Body (200 OK)**

@@ -21,7 +21,7 @@ Los endpoints de roles permiten gestionar los diferentes roles de usuario en el 
     }
   ]
   ```
-  - **Response Body (Sin contenido - 204 No Content):**
+  - **Response Body (Sin roles - 200 OK):**
   ```json
   "No roles found"
   ```
@@ -75,6 +75,10 @@ Los endpoints de roles permiten gestionar los diferentes roles de usuario en el 
     "message": "Role added successfully"
   }
   ```
+  - **Response Body (Error - 400 Bad Request):** nombre de rol en blanco o inválido
+  ```json
+  "Invalid role data"
+  ```
 
 - `PUT /roles/{id}`: Actualiza un rol existente.
   - **Authorization:** Requiere access token válido (admin)
@@ -102,7 +106,18 @@ Los endpoints de roles permiten gestionar los diferentes roles de usuario en el 
   ```
   - **Response Body (Éxito - 200 OK):**
   ```json
-  "Role updated successfully"
+  {
+    "id": "76ee1086-b945-4170-b2e6-9fbeb95ae0be",
+    "message": "Role updated successfully"
+  }
+  ```
+  - **Response Body (Error - 400 Bad Request):** nombre de rol en blanco o inválido
+  ```json
+  "Invalid role data"
+  ```
+  - **Response Body (Error - 404 Not Found):** rol no encontrado
+  ```json
+  "Role with ID: {id} not found"
   ```
 
 - `DELETE /roles/{id}`: Elimina un rol del sistema.
@@ -176,4 +191,5 @@ Los endpoints de roles permiten gestionar los diferentes roles de usuario en el 
 - Todos los endpoints de roles requieren autenticación via access token
 - Los IDs de roles deben ser únicos en el sistema
 - La eliminación de un rol puede afectar a usuarios que tengan asignado ese rol
-- Los campos `id` y `name` son requeridos para crear/actualizar roles
+- El campo `role` (nombre) es requerido y no puede estar en blanco al crear o actualizar un rol
+- Un rol puede crearse o editarse sin permisos asignados

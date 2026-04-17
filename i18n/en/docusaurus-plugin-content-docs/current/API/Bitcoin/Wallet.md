@@ -340,6 +340,32 @@ The wallet endpoints allow you to manage the Bitcoin Lightning wallet integrated
     -H "Content-Type: application/json"
   ```
 
+### Real-time Payment WebSocket
+
+- `GET /ws/payments`: WebSocket connection to receive real-time Lightning payment notifications.
+  - **Authorization:** Requires valid access token (JWT via cookie)
+  - **Protocol:** WebSocket (`ws://` or `wss://`)
+  - **Connection example:**
+  ```javascript
+  const ws = new WebSocket("ws://127.0.0.1:9154/ws/payments");
+  ws.onmessage = (event) => console.log(JSON.parse(event.data));
+  ```
+  - **Connection established message:**
+  ```json
+  { "type": "connected" }
+  ```
+  - **Payment received message:**
+  ```json
+  {
+    "type": "payment_received",
+    "timestamp": 1712150400000,
+    "amountSat": 50000,
+    "paymentHash": "abcdef1234567890",
+    "externalId": "order-123",
+    "payerNote": "Payment for order #123"
+  }
+  ```
+
 ### Important notes:
 - Endpoints require JWT authentication via cookies (accessToken)
 - Only `/createinvoice` is available for authenticated users, the rest require admin permissions

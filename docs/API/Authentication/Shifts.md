@@ -57,30 +57,42 @@ Los endpoints de turnos permiten administrar los horarios de trabajo del persona
   }
   ```
 
+- `GET /shifts/open`: Obtiene el turno abierto actualmente.
+  - **Authorization:** Requiere `shifts_read`
+  - **Query Parameters:**
+    - `user_id` (string, opcional): Filtra por usuario específico
+  - **cURL Example:**
+  ```bash
+  curl -X GET "http://127.0.0.1:9154/shifts/open?user_id=ac5f7527-3c9a-4d89-9133-ee5d8fde631e" \
+    -H "Cookie: accessToken=$ACCESS_TOKEN"
+  ```
+  - **Response Body (Éxito - 200 OK):** Objeto `Shift` del turno abierto
+  - **Response Body (Sin turno abierto - 204 No Content)**
+
 - `POST /shifts`: Crea un nuevo turno.
-  - **Authorization:** Requiere access token válido (admin)
+  - **Authorization:** Requiere `shifts_create`
   - **Request Body:**
   ```json
   {
     "user_id": "string",
     "shift_date": "Unix Timestamp",
-    "start_time": "Unix Timestamp ",
-    "end_time": "Unix Timestamp ",
-    "notes": "string"
+    "start_time": "Unix Timestamp",
+    "end_time": "Unix Timestamp (opcional)",
+    "notes": "string",
+    "initial_amount": 0.0
   }
   ```
   - **cURL Example:**
   ```bash
   curl -X POST "http://127.0.0.1:9154/shifts" \
     -H "Cookie: accessToken=$ACCESS_TOKEN" \
-    -H "Cookie: refreshToken=$REFRESH_TOKEN" \
     -H "Content-Type: application/json" \
     -d '{
       "user_id": "ac5f7527-3c9a-4d89-9133-ee5d8fde631e",
       "shift_date": "1753523565371",
       "start_time": "1753523565371",
-      "end_time": "1753549837824",
-      "notes": "Turno de mañana"
+      "notes": "Turno de mañana",
+      "initial_amount": 500.00
     }'
   ```
   - **Response Body (Éxito - 201 Created):**
@@ -92,7 +104,7 @@ Los endpoints de turnos permiten administrar los horarios de trabajo del persona
   ```
 
 - `PUT /shifts/{id}`: Actualiza un turno existente.
-  - **Authorization:** Requiere access token válido (admin)
+  - **Authorization:** Requiere `shifts_update`
   - **Path Parameters:**
     - `id` (string): ID del turno a actualizar
   - **Request Body:**
@@ -100,23 +112,26 @@ Los endpoints de turnos permiten administrar los horarios de trabajo del persona
   {
     "user_id": "string",
     "shift_date": "Unix Timestamp",
-    "start_time": "Unix Timestamp ",
-    "end_time": "Unix Timestamp ",
-    "notes": "string"
+    "start_time": "Unix Timestamp",
+    "end_time": "Unix Timestamp (opcional)",
+    "notes": "string",
+    "initial_amount": 0.0,
+    "final_amount": 0.0,
+    "difference": 0.0
   }
   ```
   - **cURL Example:**
   ```bash
   curl -X PUT "http://127.0.0.1:9154/shifts/0e5805f1-ff25-4c9d-823b-cacc81eb31db" \
     -H "Cookie: accessToken=$ACCESS_TOKEN" \
-    -H "Cookie: refreshToken=$REFRESH_TOKEN" \
     -H "Content-Type: application/json" \
     -d '{
       "user_id": "03978988-42ff-4cb9-a790-c51aceb39b2b",
       "shift_date": "1753523565371",
       "start_time": "1753523565371",
       "end_time": "1753549837824",
-      "notes": "Turno extendido por eventos especiales"
+      "notes": "Turno extendido por eventos especiales",
+      "initial_amount": 500.00
     }'
   ```
   - **Response Body (Éxito - 200 OK):**
@@ -124,6 +139,32 @@ Los endpoints de turnos permiten administrar los horarios de trabajo del persona
   {
     "id": "0e5805f1-ff25-4c9d-823b-cacc81eb31db",
     "message": "Shift updated successfully"
+  }
+  ```
+
+- `POST /shifts/{id}/close`: Cierra un turno abierto.
+  - **Authorization:** Requiere `shifts_update`
+  - **Path Parameters:**
+    - `id` (string): ID del turno a cerrar
+  - **Request Body (opcional):**
+  ```json
+  {
+    "final_amount": 520.00,
+    "difference": 20.00
+  }
+  ```
+  - **cURL Example:**
+  ```bash
+  curl -X POST "http://127.0.0.1:9154/shifts/0e5805f1-ff25-4c9d-823b-cacc81eb31db/close" \
+    -H "Cookie: accessToken=$ACCESS_TOKEN" \
+    -H "Content-Type: application/json" \
+    -d '{ "final_amount": 520.00, "difference": 20.00 }'
+  ```
+  - **Response Body (Éxito - 200 OK):**
+  ```json
+  {
+    "id": "0e5805f1-ff25-4c9d-823b-cacc81eb31db",
+    "message": "Shift closed successfully"
   }
   ```
 
