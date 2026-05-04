@@ -53,4 +53,8 @@ website/profile.json.gz
 
 build
 
+# AI Generated files
+CLAUDE.md
 GEMINI.md
+*PLAN.md
+.claude
