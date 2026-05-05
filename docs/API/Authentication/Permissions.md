@@ -3,7 +3,7 @@
 Los endpoints de permisos permiten listar los permisos disponibles en el sistema. Estos permisos se asignan a roles.
 
 - `GET /permissions`: Obtiene todos los permisos habilitados.
-  - **Authorization:** Requiere access token válido (admin)
+  - **Authorization:** Requiere `permissions_read`
   - **cURL Example:**
   ```bash
   curl -X GET http://127.0.0.1:9154/permissions \
@@ -18,7 +18,10 @@ Los endpoints de permisos permiten listar los permisos disponibles en el sistema
     { "id": "g7h8i9...", "name": "settings_update", "description": "Update settings/config", "enabled": true }
   ]
   ```
-  - **Response Body (Sin contenido - 204 No Content):** sin cuerpo
+  - **Response Body (Lista vacía - 200 OK):**
+  ```json
+  "No permissions found"
+  ```
 
 ### Notas importantes
 - La asignación de permisos a roles se gestiona desde los endpoints de Roles (`/roles/{id}/permissions`).

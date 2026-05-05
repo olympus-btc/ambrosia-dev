@@ -3,7 +3,7 @@
 Los endpoints de roles permiten gestionar los diferentes roles de usuario en el sistema.
 
 - `GET /roles`: Obtiene todos los roles del sistema.
-  - **Authorization:** Requiere access token válido (admin)
+  - **Authorization:** Requiere `roles_read`
   - **cURL Example:**
   ```bash
   curl -X GET http://127.0.0.1:9154/roles \
@@ -47,7 +47,7 @@ Los endpoints de roles permiten gestionar los diferentes roles de usuario en el 
   ```
 
 - `POST /roles`: Crea un nuevo rol en el sistema.
-  - **Authorization:** Requiere access token válido (admin)
+  - **Authorization:** Requiere `roles_create`
   - **Request Body:**
   ```json
     {
@@ -81,7 +81,7 @@ Los endpoints de roles permiten gestionar los diferentes roles de usuario en el 
   ```
 
 - `PUT /roles/{id}`: Actualiza un rol existente.
-  - **Authorization:** Requiere access token válido (admin)
+  - **Authorization:** Requiere `roles_update`
   - **Path Parameters:**
     - `id` (string): ID del rol a actualizar
   - **Request Body:**
@@ -121,7 +121,7 @@ Los endpoints de roles permiten gestionar los diferentes roles de usuario en el 
   ```
 
 - `DELETE /roles/{id}`: Elimina un rol del sistema.
-  - **Authorization:** Requiere access token válido (admin)
+  - **Authorization:** Requiere `roles_delete`
   - **Path Parameters:**
     - `id` (string): ID del rol a eliminar
   - **cURL Example:**
@@ -130,10 +130,7 @@ Los endpoints de roles permiten gestionar los diferentes roles de usuario en el 
     -H "Cookie: accessToken=$ACCESS_TOKEN" \
     -H "Cookie: refreshToken=$REFRESH_TOKEN"
   ```
-  - **Response Body (Éxito - 204 No Content):**
-  ```json
-  "Role deleted successfully"
-  ```
+  - **Response (Éxito - 204 No Content):** sin cuerpo
 
 ---
 

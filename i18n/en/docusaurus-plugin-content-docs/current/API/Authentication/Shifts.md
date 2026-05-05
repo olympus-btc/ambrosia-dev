@@ -3,6 +3,7 @@
 The shift endpoints allow you to manage the work schedules of the restaurant staff.
 
 - `GET /shifts`: Gets all the shifts in the system.
+  - **Authorization:** Requires `shifts_read`
   - **cURL Example:**
   ```bash
   curl -X GET "http://127.0.0.1:9154/shifts" \
@@ -36,7 +37,7 @@ The shift endpoints allow you to manage the work schedules of the restaurant sta
   ```
 
 - `GET /shifts/{id}`: Gets a specific shift by its ID.
-  - **Authorization:** Requires a valid access token (sent automatically via cookies)
+  - **Authorization:** Requires `shifts_read`
   - **Path Parameters:**
     - `id` (string): ID of the shift to get
   - **cURL Example:**
@@ -143,7 +144,7 @@ The shift endpoints allow you to manage the work schedules of the restaurant sta
   ```
 
 - `POST /shifts/{id}/close`: Closes an open shift.
-  - **Authorization:** Requires `shifts_update`
+  - **Authorization:** Requires `shifts_create`
   - **Path Parameters:**
     - `id` (string): ID of the shift to close
   - **Request Body (optional):**
@@ -169,7 +170,7 @@ The shift endpoints allow you to manage the work schedules of the restaurant sta
   ```
 
 - `DELETE /shifts/{id}`: Deletes a shift from the system.
-  - **Authorization:** Requires a valid access token (sent automatically via cookies)
+  - **Authorization:** Requires `shifts_delete`
   - **Path Parameters:**
     - `id` (string): ID of the shift to delete
   - **cURL Example:**
@@ -178,13 +179,7 @@ The shift endpoints allow you to manage the work schedules of the restaurant sta
     -H "Cookie: accessToken=$ACCESS_TOKEN" \
     -H "Cookie: refreshToken=$REFRESH_TOKEN"
   ```
-  - **Response Body (Success - 200 OK):**
-  ```json
-  {
-    "id": "03978988-42ff-4cb9-a790-c51aceb39b2b",
-    "message": "Shift deleted successfully"
-  }
-  ```
+  - **Response (Success - 204 No Content):** no body
 
 ### Important notes:
 - All shift endpoints require authentication except for GET, which is required when starting a session
