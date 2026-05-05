@@ -3,7 +3,7 @@
 The ticket endpoints allow you to manage the invoices and receipts of the point of sale system.
 
 - `GET /tickets`: Gets all the tickets in the system.
-  - **Authorization:** Requires a valid access token (sent automatically via cookies)
+  - **Authorization:** Requires `tickets_read`
   - **cURL Example:**
   ```bash
   curl -X GET "http://127.0.0.1:9154/tickets" \
@@ -39,7 +39,7 @@ The ticket endpoints allow you to manage the invoices and receipts of the point 
   ```
 
 - `GET /tickets/{id}`: Gets a specific ticket by its ID.
-  - **Authorization:** Requires a valid access token (sent automatically via cookies)
+  - **Authorization:** Requires `tickets_read`
   - **Path Parameters:**
     - `id` (string): ID of the ticket to get
   - **cURL Example:**
@@ -62,7 +62,7 @@ The ticket endpoints allow you to manage the invoices and receipts of the point 
   ```
 
 - `POST /tickets`: Creates a new ticket.
-  - **Authorization:** Requires a valid access token (sent automatically via cookies)
+  - **Authorization:** Requires `tickets_create`
   - **Request Body:**
   ```json
   {
@@ -97,7 +97,7 @@ The ticket endpoints allow you to manage the invoices and receipts of the point 
   ```
 
 - `PUT /tickets/{id}`: Updates an existing ticket.
-  - **Authorization:** Requires a valid access token (sent automatically via cookies)
+  - **Authorization:** Requires `tickets_update`
   - **Path Parameters:**
     - `id` (string): ID of the ticket to update
   - **Request Body:**
@@ -128,11 +128,14 @@ The ticket endpoints allow you to manage the invoices and receipts of the point 
   ```
   - **Response Body (Success - 200 OK):**
   ```json
-  "Ticket updated successfully"
+  {
+    "id": "2ce883f9-bd79-447c-b840-af418ca2223c",
+    "message": "Ticket updated successfully"
+  }
   ```
 
 - `DELETE /tickets/{id}`: Deletes a ticket from the system.
-  - **Authorization:** Requires a valid access token (sent automatically via cookies)
+  - **Authorization:** Requires `tickets_delete`
   - **Path Parameters:**
     - `id` (string): ID of the ticket to delete
   - **cURL Example:**
@@ -141,10 +144,7 @@ The ticket endpoints allow you to manage the invoices and receipts of the point 
     -H "Cookie: accessToken=$ACCESS_TOKEN" \
     -H "Cookie: refreshToken=$REFRESH_TOKEN"
   ```
-  - **Response Body (Success - 200 OK):**
-  ```json
-  "Ticket deleted successfully"
-  ```
+  - **Response (Success - 204 No Content):** no body
 
 ### Important notes:
 - All ticket endpoints require authentication 

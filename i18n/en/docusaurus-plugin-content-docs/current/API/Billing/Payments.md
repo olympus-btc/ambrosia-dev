@@ -5,7 +5,7 @@ The payment endpoints allow you to manage transactions, payment methods, and cur
 ## Main Payments
 
 - `GET /payments`: Gets all the payments in the system.
-  - **Authorization:** Requires a valid access token (sent automatically via cookies)
+  - **Authorization:** Requires `payments_read`
   - **cURL Example:**
   ```bash
   curl -X GET "http://127.0.0.1:9154/payments" \
@@ -37,7 +37,7 @@ The payment endpoints allow you to manage transactions, payment methods, and cur
   ```
 
 - `GET /payments/{id}`: Gets a specific payment by its ID.
-  - **Authorization:** Requires a valid access token (sent automatically via cookies)
+  - **Authorization:** Requires `payments_read`
   - **Path Parameters:**
     - `id` (string): ID of the payment to get
   - **cURL Example:**
@@ -58,7 +58,7 @@ The payment endpoints allow you to manage transactions, payment methods, and cur
   ```
 
 - `POST /payments`: Creates a new payment.
-  - **Authorization:** Requires a valid access token (sent automatically via cookies)
+  - **Authorization:** Requires `payments_create`
   - **Request Body:**
   ```json
   {
@@ -90,7 +90,7 @@ The payment endpoints allow you to manage transactions, payment methods, and cur
   ```
 
 - `PUT /payments/{id}`: Updates an existing payment.
-  - **Authorization:** Requires a valid access token (sent automatically via cookies)
+  - **Authorization:** Requires `payments_update`
   - **Path Parameters:**
     - `id` (string): ID of the payment to update
   - **Request Body:**
@@ -108,18 +108,15 @@ The payment endpoints allow you to manage transactions, payment methods, and cur
   ```
 
 - `DELETE /payments/{id}`: Deletes a payment from the system.
-  - **Authorization:** Requires a valid access token (sent automatically via cookies)
+  - **Authorization:** Requires `payments_delete`
   - **Path Parameters:**
     - `id` (string): ID of the payment to delete
-  - **Response Body (Success - 200 OK):**
-  ```json
-  "Payment deleted successfully"
-  ```
+  - **Response (Success - 204 No Content):** no body
 
 ## Payment Methods
 
 - `GET /payments/methods`: Gets all available payment methods.
-  - **Authorization:** Requires a valid access token (sent automatically via cookies)
+  - **Authorization:** Requires `payments_read`
   - **cURL Example:**
   ```bash
   curl -X GET "http://127.0.0.1:9154/payments/methods" \
@@ -149,7 +146,7 @@ The payment endpoints allow you to manage transactions, payment methods, and cur
   ```
 
 - `GET /payments/methods/{id}`: Gets a specific payment method.
-  - **Authorization:** Requires a valid access token (sent automatically via cookies)
+  - **Authorization:** Requires `payments_read`
   - **Path Parameters:**
     - `id` (string): ID of the payment method
   - **Response Body (Success - 200 OK):**
@@ -163,7 +160,7 @@ The payment endpoints allow you to manage transactions, payment methods, and cur
 ## Currencies
 
 - `GET /payments/currencies`: Gets all available currencies.
-  - **Authorization:** Requires a valid access token (sent automatically via cookies)
+  - **Authorization:** Requires `payments_read`
   - **cURL Example:**
   ```bash
   curl -X GET "http://127.0.0.1:9154/payments/currencies" \
@@ -193,7 +190,7 @@ The payment endpoints allow you to manage transactions, payment methods, and cur
   ```
 
 - `GET /payments/currencies/{id}`: Gets a specific currency.
-  - **Authorization:** Requires a valid access token (sent automatically via cookies)
+  - **Authorization:** Requires `payments_read`
   - **Path Parameters:**
     - `id` (string): ID of the currency
   - **Response Body (Success - 200 OK):**
@@ -207,7 +204,7 @@ The payment endpoints allow you to manage transactions, payment methods, and cur
 ## Ticket-Payment Relationships
 
 - `POST /payments/ticket-payments`: Creates a relationship between a ticket and a payment.
-  - **Authorization:** Requires a valid access token (sent automatically via cookies)
+  - **Authorization:** Requires `payments_create`
   - **Request Body:**
   ```json
   {
@@ -228,11 +225,15 @@ The payment endpoints allow you to manage transactions, payment methods, and cur
   ```
   - **Response Body (Success - 201 Created):**
   ```json
-  "Ticket payment relationship created successfully"
+  {
+    "paymentId": "payment-uuid-1",
+    "ticketId": "ticket-uuid-1",
+    "message": "Ticket payment relationship created successfully"
+  }
   ```
 
 - `GET /payments/ticket-payments/by-ticket/{ticketId}`: Gets all payments for a ticket.
-  - **Authorization:** Requires a valid access token (sent automatically via cookies)
+  - **Authorization:** Requires `payments_read`
   - **Path Parameters:**
     - `ticketId` (string): ID of the ticket
   - **cURL Example:**
@@ -243,12 +244,12 @@ The payment endpoints allow you to manage transactions, payment methods, and cur
   ```
 
 - `GET /payments/ticket-payments/by-payment/{paymentId}`: Gets all tickets for a payment.
-  - **Authorization:** Requires a valid access token (sent automatically via cookies)
+  - **Authorization:** Requires `payments_read`
   - **Path Parameters:**
     - `paymentId` (string): ID of the payment
 
 - `DELETE /payments/ticket-payments?paymentId={id}&ticketId={id}`: Deletes a specific ticket-payment relationship.
-  - **Authorization:** Requires a valid access token (sent automatically via cookies)
+  - **Authorization:** Requires `payments_delete`
   - **Query Parameters:**
     - `paymentId` (string): ID of the payment
     - `ticketId` (string): ID of the ticket
@@ -258,19 +259,13 @@ The payment endpoints allow you to manage transactions, payment methods, and cur
     -H "Cookie: accessToken=$ACCESS_TOKEN" \
     -H "Cookie: refreshToken=$REFRESH_TOKEN"
   ```
-  - **Response Body (Success - 200 OK):**
-  ```json
-  "Ticket payment relationship deleted successfully"
-  ```
+  - **Response (Success - 204 No Content):** no body
 
 - `DELETE /payments/ticket-payments/by-ticket/{ticketId}`: Deletes all payment relationships for a ticket.
-  - **Authorization:** Requires a valid access token (sent automatically via cookies)
+  - **Authorization:** Requires `payments_delete`
   - **Path Parameters:**
     - `ticketId` (string): ID of the ticket
-  - **Response Body (Success - 200 OK):**
-  ```json
-  "All payment relationships for ticket deleted"
-  ```
+  - **Response (Success - 204 No Content):** no body
 
 ### Important notes:
 - All payment endpoints require JWT authentication
