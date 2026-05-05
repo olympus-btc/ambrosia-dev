@@ -110,13 +110,17 @@ The product endpoints let you create, retrieve, update, and delete inventory pro
   ```
   - **Response Body (Success - 200 OK):**
   ```json
-  { "message": "Stock updated successfully" }
+  { "message": "Stock adjusted successfully" }
   ```
 
 - `DELETE /products/{id}`: Logically deletes a product.
   - **Authorization:** Requires `products_delete`
   - **Path Parameters:** `id` (string)
-  - **Response Body (Success - 204 No Content)**
+  - **Response (Success - 204 No Content):** no body
+  - **Response (Error - 400 Bad Request):**
+  ```json
+  "Missing or malformed ID"
+  ```
 
 ### Notes
 - Required fields: `SKU`, `name`, `cost_cents`, `price_cents`, `quantity`, `min_stock_threshold`, `max_stock_threshold`.

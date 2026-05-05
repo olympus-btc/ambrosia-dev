@@ -17,9 +17,9 @@ The category endpoints let you create, retrieve, update, and delete categories f
     { "id": "a2d1...", "name": "Coffee" }
   ]
   ```
-  - Response Body (No Content - 204 No Content):
+  - Response Body (Empty list - 200 OK):
   ```json
-  "No categories found"
+  "No categories added yet"
   ```
 
 - `GET /categories/{id}?type=TYPE`: Retrieves a category by ID and type.
@@ -35,6 +35,10 @@ The category endpoints let you create, retrieve, update, and delete categories f
   - Response Body (Success - 200 OK):
   ```json
   { "id": "9f5c...", "name": "Beverages" }
+  ```
+  - Response Body (Error - 404 Not Found): invalid type
+  ```json
+  "No category type found"
   ```
 
 - `POST /categories`: Creates a new category.
@@ -102,10 +106,7 @@ The category endpoints let you create, retrieve, update, and delete categories f
     -H "Cookie: accessToken=$ACCESS_TOKEN" \
     -H "Cookie: refreshToken=$REFRESH_TOKEN"
   ```
-  - Response Body (Success - 204 No Content):
-  ```json
-  { "id": "b5a6...", "message": "Category deleted successfully" }
-  ```
+  - Response (Success - 204 No Content): no body
   - Possible errors (400 Bad Request): `Cannot delete category - it may be in use or not found`
 
 ### Schemas
