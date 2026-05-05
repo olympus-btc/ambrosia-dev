@@ -3,22 +3,23 @@
 Endpoints for managing the general application configuration.
 
 - `GET /config`: Gets the current application configuration.
-  - **Authorization:** Requires administrator token.
+  - **Authorization:** None (public)
   - **cURL Example:**
   ```bash
-  curl -X GET "http://127.0.0.1:9154/config" \
-    -H "Cookie: accessToken=$ACCESS_TOKEN"
+  curl -X GET "http://127.0.0.1:9154/config"
   ```
   - **Response Body (200 OK):**
   ```json
   {
     "id": 1,
-    "restaurantName": "Ambrosia Restaurant",
-    "address": "123 Main Street, Anytown",
-    "phone": "555-1234",
-    "email": "contact@ambrosia.com",
-    "taxId": "ABC123456",
-    "logo": null
+    "businessType": "store",
+    "businessName": "Ambrosia Restaurant",
+    "businessAddress": "123 Main Street, Anytown",
+    "businessPhone": "555-1234",
+    "businessEmail": "contact@ambrosia.com",
+    "businessTaxId": "ABC123456",
+    "businessLogoUrl": null,
+    "businessTypeConfirmed": false
   }
   ```
   - **Response Body (404 Not Found):**
@@ -27,19 +28,21 @@ Endpoints for managing the general application configuration.
   ```
 
 - `PUT /config`: Updates the application configuration.
-  - **Authorization:** Requires administrator token.
+  - **Authorization:** Requires `settings_update`
   :::note Important
-  This endpoint requires the **complete** configuration object to be sent. Omitting mandatory fields (such as `businessName` or `businessType`) will result in a `500 Internal Server Error`.
+  This endpoint requires the **complete** configuration object to be sent. Omitting mandatory fields (`businessName`, `businessType`) will result in a `500 Internal Server Error`.
   :::
   - **Request Body:**
   ```json
   {
-    "restaurantName": "string",
-    "address": "string",
-    "phone": "string",
-    "email": "string",
-    "taxId": "string",
-    "logo": "string (base64)"
+    "businessType": "store",
+    "businessName": "string",
+    "businessAddress": "string (optional)",
+    "businessPhone": "string (optional)",
+    "businessEmail": "string (optional)",
+    "businessTaxId": "string (optional)",
+    "businessLogoUrl": "string (optional)",
+    "businessTypeConfirmed": false
   }
   ```
   - **cURL Example:**
@@ -48,11 +51,14 @@ Endpoints for managing the general application configuration.
     -H "Cookie: accessToken=$ACCESS_TOKEN" \
     -H "Content-Type: application/json" \
     -d '{
-      "restaurantName": "Ambrosia Updated",
-      "address": "456 Oak Avenue, Anytown",
-      "phone": "555-5678",
-      "email": "info@ambrosia.com",
-      "taxId": "XYZ987654"
+      "businessType": "store",
+      "businessName": "Ambrosia Updated",
+      "businessAddress": "456 Oak Avenue, Anytown",
+      "businessPhone": "555-5678",
+      "businessEmail": "info@ambrosia.com",
+      "businessTaxId": "XYZ987654",
+      "businessLogoUrl": null,
+      "businessTypeConfirmed": true
     }'
   ```
   - **Response Body (200 OK):**
@@ -123,6 +129,9 @@ Endpoints for managing the general application configuration.
 
 - `GET /base-currency`: Gets the base currency configured for the business.
   - **Authorization:** Requires `settings_read`
+  :::caution Known Bug
+  There is a duplicate implementation in `Routing.kt` that responds `200 { "currency_id": null }` when no base currency is set. The correct behavior (documented here) is from `Currency.kt`. Issue reported to the backend team.
+  :::
   - **cURL Example:**
   ```bash
   curl -X GET "http://127.0.0.1:9154/base-currency" \
