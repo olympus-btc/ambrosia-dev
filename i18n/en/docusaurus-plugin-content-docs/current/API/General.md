@@ -68,7 +68,9 @@ These endpoints manage the first-run setup process. Only relevant on the first b
     "businessPhone": "string (optional)",
     "businessEmail": "string (optional)",
     "businessTaxId": "string (optional)",
-    "businessLogoUrl": "string (optional)"
+    "businessRFC": "string (optional, alias for businessTaxId)",
+    "businessLogoUrl": "string (optional)",
+    "businessLogo": "string (optional, alias for businessLogoUrl)"
   }
   ```
   - **Request Body (confirm business type only):**
@@ -94,8 +96,8 @@ These endpoints manage the first-run setup process. Only relevant on the first b
   ```json
   {
     "message": "Initial setup completed",
-    "userId": "uuid",
-    "roleId": "uuid"
+    "userId": 1,
+    "roleId": 1
   }
   ```
   - **Response Body (400 Bad Request):** missing data or invalid business type
@@ -110,13 +112,6 @@ These endpoints manage the first-run setup process. Only relevant on the first b
   ```json
   { "message": "Initial setup already completed" }
   ```
-
-## API Documentation
-
-- `GET /swagger`: Access the interactive API documentation (Swagger UI).
-  - **Authorization:** No authentication required
-  - **URL:** `http://127.0.0.1/9154/swagger`
-  - **Description:** Interactive web interface to explore and test all API endpoints.
 
 ---
 
