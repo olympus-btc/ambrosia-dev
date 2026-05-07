@@ -82,12 +82,12 @@ Los endpoints de usuarios permiten gestionar las cuentas de usuario en el sistem
   {
     "name": "string",
     "pin": "string (mínimo 4 caracteres)",
-    "roleId": "UUID (ID del rol)",
     "email": "string (opcional)",
     "phone": "string (opcional)",
     "isAdmin": false
   }
   ```
+  - `roleId` **no se acepta en la creación** — asignar el rol vía `PUT /users/{id}`
   - **cURL Example:**
   ```bash
   curl -X POST "http://127.0.0.1:9154/users" \
@@ -149,5 +149,5 @@ Los endpoints de usuarios permiten gestionar las cuentas de usuario en el sistem
 ### Notas importantes:
 - `GET /users` y `GET /users/{id}` son públicos (sin autenticación)
 - Los IDs de usuarios son UUID generados automáticamente
-- Usar `roleId` (UUID) para asignar rol al crear o actualizar un usuario
+- `roleId` solo se acepta en `PUT /users/{id}`, no en la creación
 - El PIN se almacena hasheado y se devuelve enmascarado como `"****"` por seguridad; mínimo 4 caracteres

@@ -92,3 +92,7 @@ After a successful login, it is **mandatory** to include the received tokens (`a
 - For protected endpoints, the browser automatically sends the required cookies.
 - If the access token expires, the system should automatically use `/auth/refresh` to obtain a new one without interrupting the user.
 :::
+
+:::warning Login Rate Limiting
+After 5 failed attempts, `POST /auth/login` applies a Fibonacci backoff (in minutes). Implemented in `Authorize.kt`.
+:::

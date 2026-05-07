@@ -12,7 +12,7 @@ Endpoints para gestionar la configuración general de la aplicación.
   ```json
   {
     "id": 1,
-    "businessType": "restaurant",
+    "businessType": "store",
     "businessName": "Ambrosia Restaurant",
     "businessAddress": "123 Main Street, Anytown",
     "businessPhone": "555-1234",
@@ -35,7 +35,7 @@ Endpoints para gestionar la configuración general de la aplicación.
   - **Request Body:**
   ```json
   {
-    "businessType": "restaurant",
+    "businessType": "store",
     "businessName": "string",
     "businessAddress": "string (opcional)",
     "businessPhone": "string (opcional)",
@@ -51,7 +51,7 @@ Endpoints para gestionar la configuración general de la aplicación.
     -H "Cookie: accessToken=$ACCESS_TOKEN" \
     -H "Content-Type: application/json" \
     -d '{
-      "businessType": "restaurant",
+      "businessType": "store",
       "businessName": "Ambrosia Updated",
       "businessAddress": "456 Oak Avenue, Anytown",
       "businessPhone": "555-5678",
@@ -129,6 +129,9 @@ Endpoints para gestionar la configuración general de la aplicación.
 
 - `GET /base-currency`: Obtiene la moneda base configurada para el negocio.
   - **Authorization:** Requiere `settings_read`
+  :::caution Bug conocido
+  Existe una implementación duplicada en `Routing.kt` que responde `200 { "currency_id": null }` cuando no hay moneda base. El comportamiento correcto (documentado aquí) es el de `Currency.kt`. Issue reportado al equipo de backend.
+  :::
   - **cURL Example:**
   ```bash
   curl -X GET "http://127.0.0.1:9154/base-currency" \

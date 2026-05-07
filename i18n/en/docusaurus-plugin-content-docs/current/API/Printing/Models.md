@@ -9,9 +9,12 @@ Used to send a print request.
 ```kotlin
 @Serializable
 data class PrintRequest(
-    val templateName: String, // Name of the template to use
-    val ticketData: TicketData, // Data of the ticket to print
-    val type: TicketType // Type of ticket (KITCHEN or CUSTOMER)
+    val printerType: TicketType,           // KITCHEN, CUSTOMER or BAR
+    val ticketData: TicketData,            // Data of the ticket to print
+    val templateName: String? = null,      // Template name (optional)
+    val printerId: String? = null,         // Printer config UUID (optional)
+    val broadcast: Boolean = false,        // Send to all printers of this type
+    val forceTemplateName: Boolean = false // Force exact template without fallback
 )
 ```
 
@@ -22,8 +25,8 @@ Used to assign a printer to a ticket type.
 ```kotlin
 @Serializable
 data class SetPrinterRequest(
-    val type: TicketType, // KITCHEN or CUSTOMER
-    val printerName: String // Name of the printer
+    val printerType: TicketType, // KITCHEN, CUSTOMER or BAR
+    val printerName: String      // Name of the printer
 )
 ```
 

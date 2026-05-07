@@ -3,6 +3,7 @@
 Los endpoints de turnos permiten administrar los horarios de trabajo del personal del restaurante.
 
 - `GET /shifts`: Obtiene todos los turnos del sistema.
+  - **Authorization:** Requiere `shifts_read`
   - **cURL Example:**
   ```bash
   curl -X GET "http://127.0.0.1:9154/shifts" \
@@ -36,7 +37,7 @@ Los endpoints de turnos permiten administrar los horarios de trabajo del persona
   ```
 
 - `GET /shifts/{id}`: Obtiene un turno específico por su ID.
-  - **Authorization:** Requiere access token válido (enviado automáticamente via cookies)
+  - **Authorization:** Requiere `shifts_read`
   - **Path Parameters:**
     - `id` (string): ID del turno a obtener
   - **cURL Example:**
@@ -143,7 +144,7 @@ Los endpoints de turnos permiten administrar los horarios de trabajo del persona
   ```
 
 - `POST /shifts/{id}/close`: Cierra un turno abierto.
-  - **Authorization:** Requiere `shifts_update`
+  - **Authorization:** Requiere `shifts_create`
   - **Path Parameters:**
     - `id` (string): ID del turno a cerrar
   - **Request Body (opcional):**
@@ -169,7 +170,7 @@ Los endpoints de turnos permiten administrar los horarios de trabajo del persona
   ```
 
 - `DELETE /shifts/{id}`: Elimina un turno del sistema.
-  - **Authorization:** Requiere access token válido (enviado automáticamente via cookies)
+  - **Authorization:** Requiere `shifts_delete`
   - **Path Parameters:**
     - `id` (string): ID del turno a eliminar
   - **cURL Example:**
@@ -178,13 +179,7 @@ Los endpoints de turnos permiten administrar los horarios de trabajo del persona
     -H "Cookie: accessToken=$ACCESS_TOKEN" \
     -H "Cookie: refreshToken=$REFRESH_TOKEN" \
   ```
-  - **Response Body (Éxito - 200 OK):**
-  ```json
-  {
-    "id": "03978988-42ff-4cb9-a790-c51aceb39b2b",
-    "message": "Shift deleted successfully"
-  }
-  ```
+  - **Response (Éxito - 204 No Content):** sin cuerpo
 
 ### Notas importantes:
 - Todos los endpoints de turnos requieren autenticación a excepción del GET, que es requerido al iniciar sessión

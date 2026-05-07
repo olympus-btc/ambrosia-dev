@@ -53,7 +53,7 @@ Los endpoints de wallet permiten gestionar la billetera Bitcoin Lightning integr
   curl -X GET "http://127.0.0.1:9154/wallet/getinfo" \
     -H "Cookie: accessToken=$ACCESS_TOKEN" \
     -H "Cookie: refreshToken=$REFRESH_TOKEN" \
-    -H "Cookie: walletAccessToken=$REFRESH_TOKEN" \
+    -H "Cookie: walletAccessToken=$WALLET_ACCESS_TOKEN" \
     -H "Content-Type: application/json"
   ```
   - **Response Body (Éxito - 200 OK):**
@@ -83,7 +83,7 @@ Los endpoints de wallet permiten gestionar la billetera Bitcoin Lightning integr
   curl -X GET "http://127.0.0.1:9154/wallet/getbalance" \
     -H "Cookie: accessToken=$ACCESS_TOKEN" \
     -H "Cookie: refreshToken=$REFRESH_TOKEN" \
-    -H "Cookie: walletAccessToken=$REFRESH_TOKEN" \
+    -H "Cookie: walletAccessToken=$WALLET_ACCESS_TOKEN" \
     -H "Content-Type: application/json"
   ```
   - **Response Body (Éxito - 200 OK):**
@@ -93,6 +93,11 @@ Los endpoints de wallet permiten gestionar la billetera Bitcoin Lightning integr
     "feeCreditSat": 5000
   }
   ```
+
+- `POST /wallet/invoice`: Crea una factura Lightning. Requiere solo JWT (sin `walletAccessToken`) — ideal para crear facturas desde el flujo de cobro sin exponer credenciales de wallet.
+  - **Authorization:** Requiere `accessToken` (JWT)
+  - **Request Body:** Igual que `/wallet/createinvoice`
+  - **Response Body (200 OK):** Igual que `/wallet/createinvoice`
 
 - `POST /wallet/createinvoice`: Crea una factura Lightning para recibir pagos.
   - **Authorization:** Requiere autenticación JWT
@@ -141,7 +146,7 @@ Los endpoints de wallet permiten gestionar la billetera Bitcoin Lightning integr
   curl -X POST "http://127.0.0.1:9154/wallet/payinvoice" \
     -H "Cookie: accessToken=$ACCESS_TOKEN" \
     -H "Cookie: refreshToken=$REFRESH_TOKEN" \
-    -H "Cookie: walletAccessToken=$REFRESH_TOKEN" \
+    -H "Cookie: walletAccessToken=$WALLET_ACCESS_TOKEN" \
     -H "Content-Type: application/json" \
     -d '{
       "amountSat": 25000,
@@ -174,7 +179,7 @@ Los endpoints de wallet permiten gestionar la billetera Bitcoin Lightning integr
   curl -X POST "http://127.0.0.1:9154/wallet/payoffer" \
     -H "Cookie: accessToken=$ACCESS_TOKEN" \
     -H "Cookie: refreshToken=$REFRESH_TOKEN" \
-    -H "Cookie: walletAccessToken=$REFRESH_TOKEN" \
+    -H "Cookie: walletAccessToken=$WALLET_ACCESS_TOKEN" \
     -H "Content-Type: application/json" \
     -d '{
       "amountSat": 30000,
@@ -208,7 +213,7 @@ Los endpoints de wallet permiten gestionar la billetera Bitcoin Lightning integr
   curl -X POST "http://127.0.0.1:9154/wallet/payonchain" \
     -H "Cookie: accessToken=$ACCESS_TOKEN" \
     -H "Cookie: refreshToken=$REFRESH_TOKEN" \
-    -H "Cookie: walletAccessToken=$REFRESH_TOKEN" \
+    -H "Cookie: walletAccessToken=$WALLET_ACCESS_TOKEN" \
     -H "Content-Type: application/json" \
     -d '{
       "amountSat": 100000,
@@ -236,7 +241,7 @@ Los endpoints de wallet permiten gestionar la billetera Bitcoin Lightning integr
   curl -X POST "http://127.0.0.1:9154/wallet/bumpfee" \
     -H "Cookie: accessToken=$ACCESS_TOKEN" \
     -H "Cookie: refreshToken=$REFRESH_TOKEN" \
-    -H "Cookie: walletAccessToken=$REFRESH_TOKEN" \
+    -H "Cookie: walletAccessToken=$WALLET_ACCESS_TOKEN" \
     -H "Content-Type: application/json" \
     -d '25'
   ```
@@ -248,6 +253,57 @@ Los endpoints de wallet permiten gestionar la billetera Bitcoin Lightning integr
     "additionalFeesSat": 1500
   }
   ```
+
+- `POST /wallet/decodeinvoice`: Decodifica una factura Lightning y devuelve su monto y descripción.
+  - **Authorization:** Requiere `accessToken` + `walletAccessToken`
+  - **Request Body:**
+  ```json
+  {
+    "invoice": "lnbc500u1p3xnhl2pp5..."
+  }
+  ```
+  - **Response Body (200 OK):**
+  ```json
+  {
+    "amountSat": 50000,
+    "description": "Pago orden #123"
+  }
+  ```
+  - **Response Body (400 Bad Request):**
+  ```json
+  { "error": "Could not decode invoice" }
+  ```
+
+- `POST /wallet/closechannel`: Cierra un canal Lightning.
+  - **Authorization:** Requiere `accessToken` + `walletAccessToken`
+  - **Request Body:**
+  ```json
+  {
+    "channelId": "string",
+    "address": "bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh",
+    "feerateSatByte": 10
+  }
+  ```
+  - **Response Body (200 OK):** Resultado del servicio Phoenix.
+
+- `POST /wallet/export`: Exporta el historial de transacciones en formato CSV.
+  - **Authorization:** Requiere `accessToken` + `walletAccessToken`
+  - **Request Body:**
+  ```json
+  {
+    "from": "2024-01-01",
+    "to": "2024-12-31"
+  }
+  ```
+  - **Response Body (200 OK):** Resultado de exportación CSV.
+
+- `GET /wallet/seed`: Obtiene la semilla (mnemónico) de la wallet.
+  - **Authorization:** Requiere `accessToken` + `walletAccessToken`
+  - **Response Body (200 OK):** Datos de semilla desde Phoenix.
+
+:::warning
+Expone la semilla de la wallet. Usar únicamente en contextos seguros y controlados — nunca en producción sin justificación explícita.
+:::
 
 ### Gestión de Pagos
 
@@ -265,7 +321,7 @@ Los endpoints de wallet permiten gestionar la billetera Bitcoin Lightning integr
   curl -X GET "http://127.0.0.1:9154/wallet/payments/incoming?limit=10&offset=0" \
     -H "Cookie: accessToken=$ACCESS_TOKEN" \
     -H "Cookie: refreshToken=$REFRESH_TOKEN" \
-    -H "Cookie: walletAccessToken=$REFRESH_TOKEN" \
+    -H "Cookie: walletAccessToken=$WALLET_ACCESS_TOKEN" \
     -H "Content-Type: application/json"
   ```
   - **Response Body (Éxito - 200 OK):**
@@ -293,7 +349,7 @@ Los endpoints de wallet permiten gestionar la billetera Bitcoin Lightning integr
   curl -X GET "http://127.0.0.1:9154/wallet/payments/incoming/abcdef1234567890" \
     -H "Cookie: accessToken=$ACCESS_TOKEN" \
     -H "Cookie: refreshToken=$REFRESH_TOKEN" \
-    -H "Cookie: walletAccessToken=$REFRESH_TOKEN" \
+    -H "Cookie: walletAccessToken=$WALLET_ACCESS_TOKEN" \
     -H "Content-Type: application/json"
   ```
 
@@ -310,7 +366,7 @@ Los endpoints de wallet permiten gestionar la billetera Bitcoin Lightning integr
   curl -X GET "http://127.0.0.1:9154/wallet/payments/outgoing?limit=10" \
     -H "Cookie: accessToken=$ACCESS_TOKEN" \
     -H "Cookie: refreshToken=$REFRESH_TOKEN" \
-    -H "Cookie: walletAccessToken=$REFRESH_TOKEN" \
+    -H "Cookie: walletAccessToken=$WALLET_ACCESS_TOKEN" \
     -H "Content-Type: application/json"
   ```
 
@@ -323,7 +379,7 @@ Los endpoints de wallet permiten gestionar la billetera Bitcoin Lightning integr
   curl -X GET "http://127.0.0.1:9154/wallet/payments/outgoing/payment-uuid-123" \
     -H "Cookie: accessToken=$ACCESS_TOKEN" \
     -H "Cookie: refreshToken=$REFRESH_TOKEN" \
-    -H "Cookie: walletAccessToken=$REFRESH_TOKEN" \
+    -H "Cookie: walletAccessToken=$WALLET_ACCESS_TOKEN" \
     -H "Content-Type: application/json"
   ```
 
@@ -336,7 +392,7 @@ Los endpoints de wallet permiten gestionar la billetera Bitcoin Lightning integr
   curl -X GET "http://127.0.0.1:9154/wallet/payments/outgoingbyhash/abcdef1234567890" \
     -H "Cookie: accessToken=$ACCESS_TOKEN" \
     -H "Cookie: refreshToken=$REFRESH_TOKEN" \
-    -H "Cookie: walletAccessToken=$REFRESH_TOKEN" \
+    -H "Cookie: walletAccessToken=$WALLET_ACCESS_TOKEN" \
     -H "Content-Type: application/json"
   ```
 

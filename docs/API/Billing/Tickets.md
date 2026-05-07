@@ -3,7 +3,7 @@
 Los endpoints de tickets permiten administrar las facturas y recibos del sistema de punto de venta.
 
 - `GET /tickets`: Obtiene todos los tickets del sistema.
-  - **Authorization:** Requiere access token válido (enviado automáticamente via cookies)
+  - **Authorization:** Requiere `tickets_read`
   - **cURL Example:**
   ```bash
   curl -X GET "http://127.0.0.1:9154/tickets" \
@@ -39,7 +39,7 @@ Los endpoints de tickets permiten administrar las facturas y recibos del sistema
   ```
 
 - `GET /tickets/{id}`: Obtiene un ticket específico por su ID.
-  - **Authorization:** Requiere access token válido (enviado automáticamente via cookies)
+  - **Authorization:** Requiere `tickets_read`
   - **Path Parameters:**
     - `id` (string): ID del ticket a obtener
   - **cURL Example:**
@@ -62,7 +62,7 @@ Los endpoints de tickets permiten administrar las facturas y recibos del sistema
   ```
 
 - `POST /tickets`: Crea un nuevo ticket.
-  - **Authorization:** Requiere access token válido (enviado automáticamente via cookies)
+  - **Authorization:** Requiere `tickets_create`
   - **Request Body:**
   ```json
   {
@@ -97,7 +97,7 @@ Los endpoints de tickets permiten administrar las facturas y recibos del sistema
   ```
 
 - `PUT /tickets/{id}`: Actualiza un ticket existente.
-  - **Authorization:** Requiere access token válido (enviado automáticamente via cookies)
+  - **Authorization:** Requiere `tickets_update`
   - **Path Parameters:**
     - `id` (string): ID del ticket a actualizar
   - **Request Body:**
@@ -128,11 +128,14 @@ Los endpoints de tickets permiten administrar las facturas y recibos del sistema
   ```
   - **Response Body (Éxito - 200 OK):**
   ```json
-  "Ticket updated successfully"
+  {
+    "id": "2ce883f9-bd79-447c-b840-af418ca2223c",
+    "message": "Ticket updated successfully"
+  }
   ```
 
 - `DELETE /tickets/{id}`: Elimina un ticket del sistema.
-  - **Authorization:** Requiere access token válido (enviado automáticamente via cookies)
+  - **Authorization:** Requiere `tickets_delete`
   - **Path Parameters:**
     - `id` (string): ID del ticket a eliminar
   - **cURL Example:**
@@ -141,10 +144,7 @@ Los endpoints de tickets permiten administrar las facturas y recibos del sistema
     -H "Cookie: accessToken=$ACCESS_TOKEN" \
     -H "Cookie: refreshToken=$REFRESH_TOKEN"
   ```
-  - **Response Body (Éxito - 200 OK):**
-  ```json
-  "Ticket deleted successfully"
-  ```
+  - **Response (Éxito - 204 No Content):** sin cuerpo
 
 ### Notas importantes:
 - Todos los endpoints de tickets requieren autenticación 

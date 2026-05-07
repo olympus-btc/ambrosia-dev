@@ -17,9 +17,9 @@ Los endpoints de categorías permiten crear, consultar, actualizar y eliminar ca
     { "id": "a2d1...", "name": "Cafetería" }
   ]
   ```
-  - Response Body (Sin contenido - 204 No Content):
+  - Response Body (Lista vacía - 200 OK):
   ```json
-  "No categories found"
+  "No categories added yet"
   ```
 
 - `GET /categories/{id}?type=TYPE`: Obtiene una categoría por su ID y tipo.
@@ -35,6 +35,10 @@ Los endpoints de categorías permiten crear, consultar, actualizar y eliminar ca
   - Response Body (Éxito - 200 OK):
   ```json
   { "id": "9f5c...", "name": "Bebidas" }
+  ```
+  - Response Body (Error - 404 Not Found): tipo inválido
+  ```json
+  "No category type found"
   ```
 
 - `POST /categories`: Crea una nueva categoría.
@@ -102,10 +106,7 @@ Los endpoints de categorías permiten crear, consultar, actualizar y eliminar ca
     -H "Cookie: accessToken=$ACCESS_TOKEN" \
     -H "Cookie: refreshToken=$REFRESH_TOKEN"
   ```
-  - Response Body (Éxito - 204 No Content):
-  ```json
-  { "id": "b5a6...", "message": "Category deleted successfully" }
-  ```
+  - Response (Éxito - 204 No Content): sin cuerpo
   - Posibles errores (400 Bad Request): `Cannot delete category - it may be in use or not found`
 
 ### Esquemas

@@ -110,13 +110,17 @@ Los endpoints de productos permiten crear, consultar, actualizar y eliminar prod
   ```
   - **Response Body (Éxito - 200 OK):**
   ```json
-  { "message": "Stock updated successfully" }
+  { "message": "Stock adjusted successfully" }
   ```
 
 - `DELETE /products/{id}`: Elimina (lógico) un producto.
   - **Authorization:** Requiere `products_delete`
   - **Path Parameters:** `id` (string)
-  - **Response Body (Éxito - 204 No Content)**
+  - **Response (Éxito - 204 No Content):** sin cuerpo
+  - **Response (Error - 400 Bad Request):**
+  ```json
+  "Missing or malformed ID"
+  ```
 
 ### Notas
 - Los campos requeridos son: `SKU`, `name`, `cost_cents`, `price_cents`, `quantity`, `min_stock_threshold`, `max_stock_threshold`.

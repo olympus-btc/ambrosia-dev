@@ -5,7 +5,7 @@ Los endpoints de pagos permiten administrar las transacciones, métodos de pago 
 ## Pagos Principales
 
 - `GET /payments`: Obtiene todos los pagos del sistema.
-  - **Authorization:** Requiere access token válido (enviado automáticamente via cookies)
+  - **Authorization:** Requiere `payments_read`
   - **cURL Example:**
   ```bash
   curl -X GET "http://127.0.0.1:9154/payments" \
@@ -37,7 +37,7 @@ Los endpoints de pagos permiten administrar las transacciones, métodos de pago 
   ```
 
 - `GET /payments/{id}`: Obtiene un pago específico por su ID.
-  - **Authorization:** Requiere access token válido (enviado automáticamente via cookies)
+  - **Authorization:** Requiere `payments_read`
   - **Path Parameters:**
     - `id` (string): ID del pago a obtener
   - **cURL Example:**
@@ -58,7 +58,7 @@ Los endpoints de pagos permiten administrar las transacciones, métodos de pago 
   ```
 
 - `POST /payments`: Crea un nuevo pago.
-  - **Authorization:** Requiere access token válido (enviado automáticamente via cookies)
+  - **Authorization:** Requiere `payments_create`
   - **Request Body:**
   ```json
   {
@@ -90,7 +90,7 @@ Los endpoints de pagos permiten administrar las transacciones, métodos de pago 
   ```
 
 - `PUT /payments/{id}`: Actualiza un pago existente.
-  - **Authorization:** Requiere access token válido (enviado automáticamente via cookies)
+  - **Authorization:** Requiere `payments_update`
   - **Path Parameters:**
     - `id` (string): ID del pago a actualizar
   - **Request Body:**
@@ -108,18 +108,15 @@ Los endpoints de pagos permiten administrar las transacciones, métodos de pago 
   ```
 
 - `DELETE /payments/{id}`: Elimina un pago del sistema.
-  - **Authorization:** Requiere access token válido (enviado automáticamente via cookies)
+  - **Authorization:** Requiere `payments_delete`
   - **Path Parameters:**
     - `id` (string): ID del pago a eliminar
-  - **Response Body (Éxito - 200 OK):**
-  ```json
-  "Payment deleted successfully"
-  ```
+  - **Response (Éxito - 204 No Content):** sin cuerpo
 
 ## Métodos de Pago
 
 - `GET /payments/methods`: Obtiene todos los métodos de pago disponibles.
-  - **Authorization:** Requiere access token válido (enviado automáticamente via cookies)
+  - **Authorization:** Requiere `payments_read`
   - **cURL Example:**
   ```bash
   curl -X GET "http://127.0.0.1:9154/payments/methods" \
@@ -149,7 +146,7 @@ Los endpoints de pagos permiten administrar las transacciones, métodos de pago 
   ```
 
 - `GET /payments/methods/{id}`: Obtiene un método de pago específico.
-  - **Authorization:** Requiere access token válido (enviado automáticamente via cookies)
+  - **Authorization:** Requiere `payments_read`
   - **Path Parameters:**
     - `id` (string): ID del método de pago
   - **Response Body (Éxito - 200 OK):**
@@ -163,7 +160,7 @@ Los endpoints de pagos permiten administrar las transacciones, métodos de pago 
 ## Monedas
 
 - `GET /payments/currencies`: Obtiene todas las monedas disponibles.
-  - **Authorization:** Requiere access token válido (enviado automáticamente via cookies)
+  - **Authorization:** Requiere `payments_read`
   - **cURL Example:**
   ```bash
   curl -X GET "http://127.0.0.1:9154/payments/currencies" \
@@ -193,7 +190,7 @@ Los endpoints de pagos permiten administrar las transacciones, métodos de pago 
   ```
 
 - `GET /payments/currencies/{id}`: Obtiene una moneda específica.
-  - **Authorization:** Requiere access token válido (enviado automáticamente via cookies)
+  - **Authorization:** Requiere `payments_read`
   - **Path Parameters:**
     - `id` (string): ID de la moneda
   - **Response Body (Éxito - 200 OK):**
@@ -207,7 +204,7 @@ Los endpoints de pagos permiten administrar las transacciones, métodos de pago 
 ## Relaciones Ticket-Pago
 
 - `POST /payments/ticket-payments`: Crea una relación entre un ticket y un pago.
-  - **Authorization:** Requiere access token válido (enviado automáticamente via cookies)
+  - **Authorization:** Requiere `payments_create`
   - **Request Body:**
   ```json
   {
@@ -228,11 +225,15 @@ Los endpoints de pagos permiten administrar las transacciones, métodos de pago 
   ```
   - **Response Body (Éxito - 201 Created):**
   ```json
-  "Ticket payment relationship created successfully"
+  {
+    "paymentId": "payment-uuid-1",
+    "ticketId": "ticket-uuid-1",
+    "message": "Ticket payment relationship created successfully"
+  }
   ```
 
 - `GET /payments/ticket-payments/by-ticket/{ticketId}`: Obtiene todos los pagos de un ticket.
-  - **Authorization:** Requiere access token válido (enviado automáticamente via cookies)
+  - **Authorization:** Requiere `payments_read`
   - **Path Parameters:**
     - `ticketId` (string): ID del ticket
   - **cURL Example:**
@@ -243,12 +244,12 @@ Los endpoints de pagos permiten administrar las transacciones, métodos de pago 
   ```
 
 - `GET /payments/ticket-payments/by-payment/{paymentId}`: Obtiene todos los tickets de un pago.
-  - **Authorization:** Requiere access token válido (enviado automáticamente via cookies)
+  - **Authorization:** Requiere `payments_read`
   - **Path Parameters:**
     - `paymentId` (string): ID del pago
 
 - `DELETE /payments/ticket-payments?paymentId={id}&ticketId={id}`: Elimina una relación ticket-pago específica.
-  - **Authorization:** Requiere access token válido (enviado automáticamente via cookies)
+  - **Authorization:** Requiere `payments_delete`
   - **Query Parameters:**
     - `paymentId` (string): ID del pago
     - `ticketId` (string): ID del ticket
@@ -258,19 +259,13 @@ Los endpoints de pagos permiten administrar las transacciones, métodos de pago 
     -H "Cookie: accessToken=$ACCESS_TOKEN" \
     -H "Cookie: refreshToken=$REFRESH_TOKEN"
   ```
-  - **Response Body (Éxito - 200 OK):**
-  ```json
-  "Ticket payment relationship deleted successfully"
-  ```
+  - **Response (Éxito - 204 No Content):** sin cuerpo
 
 - `DELETE /payments/ticket-payments/by-ticket/{ticketId}`: Elimina todas las relaciones de pago de un ticket.
-  - **Authorization:** Requiere access token válido (enviado automáticamente via cookies)
+  - **Authorization:** Requiere `payments_delete`
   - **Path Parameters:**
     - `ticketId` (string): ID del ticket
-  - **Response Body (Éxito - 200 OK):**
-  ```json
-  "All payment relationships for ticket deleted"
-  ```
+  - **Response (Éxito - 204 No Content):** sin cuerpo
 
 ### Notas importantes:
 - Todos los endpoints de pagos requieren autenticación JWT

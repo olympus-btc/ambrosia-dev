@@ -92,3 +92,7 @@ Tras un login exitoso, es **obligatorio** incluir los tokens recibidos (`accessT
 - Para endpoints protegidos, el navegador envía automáticamente las cookies.
 - Si el access token expira, el sistema debe usar automáticamente `/auth/refresh` para obtener uno nuevo sin interrumpir al usuario.
 :::
+
+:::warning Rate Limiting en Login
+Después de 5 intentos fallidos, `POST /auth/login` aplica un bloqueo con espera creciente siguiendo la sucesión de Fibonacci (en minutos). Implementado en `Authorize.kt`.
+:::

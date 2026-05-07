@@ -82,12 +82,12 @@ The user endpoints allow you to manage user accounts in the Ambrosia POS system.
   {
     "name": "string",
     "pin": "string (minimum 4 characters)",
-    "roleId": "UUID (Role ID)",
     "email": "string (optional)",
     "phone": "string (optional)",
     "isAdmin": false
   }
   ```
+  - `roleId` **is not accepted at creation** — assign the role via `PUT /users/{id}`
   - **cURL Example:**
   ```bash
   curl -X POST "http://127.0.0.1:9154/users" \
@@ -149,5 +149,5 @@ The user endpoints allow you to manage user accounts in the Ambrosia POS system.
 ### Important notes:
 - `GET /users` and `GET /users/{id}` are public (no authentication required)
 - User IDs are automatically generated UUIDs
-- Use `roleId` (UUID) to assign a role when creating or updating a user
+- `roleId` is only accepted in `PUT /users/{id}`, not at creation time
 - The PIN is stored hashed and returned masked as `"****"` for security; minimum 4 characters
