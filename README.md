@@ -1,6 +1,10 @@
-# Website
+# Ambrosia POS Docs
 
-This website is built using [Docusaurus](https://docusaurus.io/), a modern static website generator.
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
+Documentation portal for [Ambrosia POS](https://github.com/olympus-btc/ambrosia), a self-sovereign, Bitcoin/Lightning-native Point of Sale system. Live at **[dev.ambrosiapay.com](https://dev.ambrosiapay.com/)**.
+
+This site is built using [Docusaurus](https://docusaurus.io/), a modern static website generator.
 
 ## Installation
 
@@ -41,3 +45,7 @@ GIT_USER=<Your GitHub username> npm run deploy
 ```
 
 If you are using GitHub pages for hosting, this command is a convenient way to build the website and push to the `gh-pages` branch.
+
+## Contributing
+
+Contributions are welcome! Please read our **[Contributing Guide](CONTRIBUTING.md)** and **[Code of Conduct](CODE_OF_CONDUCT.md)** before opening a PR or issue.
