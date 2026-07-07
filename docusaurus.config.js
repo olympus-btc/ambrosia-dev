@@ -70,6 +70,17 @@ const config = {
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl: "https://github.com/olympus-btc/ambrosia/tree/main/docs/api",
+          lastVersion: "0.5.1-alpha",
+          versions: {
+            current: {
+              label: "Next 🚧",
+              path: "next",
+              banner: "unreleased",
+            },
+            "0.5.1-alpha": {
+              label: "v0.5.1-alpha",
+            },
+          },
         },
         blog: {
           showReadingTime: true,
@@ -167,6 +178,11 @@ const config = {
           },
           { to: "/blog", label: "Blog", position: "left" },
           { to: "/team", label: "Equipo", position: "left" },
+          {
+            type: "docsVersionDropdown",
+            position: "right",
+            dropdownActiveClassDisabled: true,
+          },
           { type: "localeDropdown", position: "right" },
           {
             href: "https://github.com/olympus-btc/ambrosia",
