@@ -67,9 +67,7 @@ const config = {
       ({
         docs: {
           sidebarPath: "./sidebars.js",
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl: "https://github.com/olympus-btc/ambrosia/tree/main/docs/api",
+          editUrl: "https://github.com/olympus-btc/ambrosia-dev/tree/main/docs",
           lastVersion: "0.5.1-alpha",
           versions: {
             current: {
@@ -89,10 +87,7 @@ const config = {
             xslt: true,
           },
           blogSidebarTitle: "Entradas Recientes",
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl:
-            "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/",
+          editUrl: "https://github.com/olympus-btc/ambrosia-dev/tree/main/blog",
           // Useful options to enforce blogging best practices
           onInlineTags: "warn",
           onInlineAuthors: "warn",

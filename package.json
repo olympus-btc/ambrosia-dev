@@ -2,6 +2,11 @@
   "name": "ambrosia-pos",
   "version": "0.7.1-beta",
   "private": true,
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/olympus-btc/ambrosia-dev.git"
+  },
   "scripts": {
     "docusaurus": "docusaurus",
     "start": "docusaurus start",
