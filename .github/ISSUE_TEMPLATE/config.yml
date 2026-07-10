@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Ambrosia POS application bug
+    url: https://github.com/olympus-btc/ambrosia/issues/new/choose
+    about: Found a bug in the POS app itself (client, server, or Electron), not in these docs? Report it in the main repository instead.
