@@ -71,7 +71,7 @@ const config = {
           lastVersion: "0.5.1-alpha",
           versions: {
             current: {
-              label: "Next 🚧",
+              label: "v0.7.1-beta 🚧",
               path: "next",
               banner: "unreleased",
             },
