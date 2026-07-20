@@ -182,37 +182,45 @@ curl -X GET "http://127.0.0.1:9154/currencies" \
 
 Obtiene la moneda base configurada para el negocio.
 
-**Authorization:** `settings_read`
+**Authorization:** ninguna — este endpoint es **público**.
 
-:::caution Endpoint duplicado
-Existe una segunda implementación **pública** de `GET /base-currency` en `Routing.kt` que responde `200 { "currency_id": null }` cuando no hay moneda base. La versión autenticada (documentada aquí) vive en `Currency.kt`.
+:::caution Endpoint duplicado: gana la versión pública
+`GET /base-currency` está registrado **dos veces**: una versión pública en `Routing.kt` y una protegida con `settings_read` en `Currency.kt`. En `Api.kt` se invoca `configureRouting()` antes que `configureCurrency()`, así que la ruta pública se registra primero y es la que responde. **La versión autenticada queda inalcanzable**, junto con su respuesta `404 { "message": "Base currency not set" }`.
 :::
 
 **cURL Example:**
 
 ```bash
-curl -X GET "http://127.0.0.1:9154/base-currency" \
-  -H "Cookie: accessToken=$ACCESS_TOKEN"
+curl -X GET "http://127.0.0.1:9154/base-currency"
 ```
 
-**Response Body (200 OK):**
+**Response Body (200 OK - con moneda base configurada):**
 
 ```json
 {
-  "id": "1",
+  "currencyId": "bccfc932-d89b-477a-b65b-04f97cae4aae",
+  "id": "bccfc932-d89b-477a-b65b-04f97cae4aae",
   "acronym": "USD",
-  "name": "US Dollar",
+  "name": "United States Dollar",
   "symbol": "$",
   "countryName": "United States",
   "countryCode": "US"
 }
 ```
 
-**Response Body (404 Not Found):**
+:::note `currencyId` e `id` están duplicados
+`BaseCurrencyResponse` declara ambos campos y el servidor los rellena con el **mismo** UUID. Es redundante, pero así responde hoy.
+:::
+
+**Response Body (200 OK - sin moneda base configurada):**
 
 ```json
-{ "message": "Base currency not set" }
+{ "currency_id": null }
 ```
+
+:::info Inconsistencia de nomenclatura
+Fíjate en el cambio de clave: cuando hay moneda base, el objeto usa `currencyId` (camelCase); cuando no la hay, la respuesta es `{ "currency_id": null }` (snake_case), porque ese caso se construye con un `mapOf` literal en `Routing.kt`. Un cliente debe contemplar ambas formas.
+:::
 
 ### PUT `/base-currency`
 

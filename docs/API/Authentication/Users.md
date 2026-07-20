@@ -28,8 +28,8 @@ curl -X GET "http://127.0.0.1:9154/users"
     "id": "e911705c-e1b4-4997-ab02-ef7460491ac0",
     "name": "cooluser1",
     "pin": "****",
-    "refreshToken": null,
-    "role": null,
+    "refreshToken": "****",
+    "role": "Mesero",
     "roleId": "e7349203-1bdf-4d8a-8a83-0f5dccb23e1b",
     "email": null,
     "phone": null,
@@ -37,6 +37,10 @@ curl -X GET "http://127.0.0.1:9154/users"
   }
 ]
 ```
+
+:::caution `isAdmin` siempre es `false` en este listado
+`getUsers()` no asigna `isAdmin`, por lo que el campo cae al valor por defecto del modelo (`false`) **independientemente de si el usuario es administrador**. Para conocer el estado real usa `GET /users/{id}`, que sí lo consulta.
+:::
 
 **Response Body (Lista vacía - 200 OK):**
 
@@ -68,19 +72,31 @@ curl -X GET "http://127.0.0.1:9154/users/76ee1086-b945-4170-b2e6-9fbeb95ae0be"
   "name": "admin",
   "pin": "****",
   "refreshToken": null,
-  "role": null,
-  "roleId": "262006ea-8782-4b08-ac3b-b3f13270fec3",
+  "role": "Admin",
+  "roleId": null,
   "email": "admin@ambrosia.com",
   "phone": null,
   "isAdmin": true
 }
 ```
 
+:::danger Este endpoint puede exponer el refresh token
+A diferencia de `GET /users`, que siempre enmascara el token como `"****"`, `getUserById()` devuelve **el valor crudo de la columna `refresh_token`**: `null` si el usuario no tiene sesión activa, pero el **token real y sin enmascarar** si la tiene. Como además el endpoint no requiere autenticación, cualquiera que conozca un ID de usuario puede obtener el token de refresco de una sesión abierta. Trátalo como un fallo de seguridad conocido del servidor, no como comportamiento deseado.
+:::
+
+:::info `isAdmin` sí es fiable aquí
+Al contrario que en `GET /users`, esta consulta selecciona `r.isAdmin`, así que el valor refleja el estado real del rol.
+:::
+
+:::info `roleId` siempre es `null` aquí
+La consulta `GET_USER_BY_ID` selecciona `r.role` e `r.isAdmin`, pero **no** `u.role_id`, así que `roleId` nunca se rellena en esta respuesta. Si necesitas el UUID del rol, usa `GET /users`.
+:::
+
 ### GET `/users/me`
 
 Obtiene el usuario autenticado actualmente, junto con sus permisos.
 
-**Authorization:** requiere `accessToken` válido.
+**Authorization:** requiere `accessToken` válido **y** la cookie `refreshToken`. Si falta esta última, responde `401 { "error": "Refresh token no encontrado" }`.
 
 **cURL Example:**
 
@@ -98,7 +114,7 @@ curl -X GET "http://127.0.0.1:9154/users/me" \
     "userId": "76ee1086-b945-4170-b2e6-9fbeb95ae0be",
     "name": "admin",
     "role": "Admin",
-    "roleId": "262006ea-8782-4b08-ac3b-b3f13270fec3",
+    "roleId": "Admin",
     "isAdmin": true,
     "email": null,
     "phone": null
@@ -108,6 +124,10 @@ curl -X GET "http://127.0.0.1:9154/users/me" \
   ]
 }
 ```
+
+:::caution `roleId` repite el nombre del rol
+El handler construye la respuesta con `roleId = userInfo.role`, es decir, asigna el **nombre** del rol al campo `roleId` en lugar del UUID (que sí está disponible como `userInfo.roleId`). Por eso `role` y `roleId` devuelven el mismo valor. Es un bug conocido del servidor; no dependas de `roleId` en este endpoint.
+:::
 
 ### POST `/users`
 

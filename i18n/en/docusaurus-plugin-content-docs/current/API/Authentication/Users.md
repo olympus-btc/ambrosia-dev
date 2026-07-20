@@ -28,8 +28,8 @@ curl -X GET "http://127.0.0.1:9154/users"
     "id": "e911705c-e1b4-4997-ab02-ef7460491ac0",
     "name": "cooluser1",
     "pin": "****",
-    "refreshToken": null,
-    "role": null,
+    "refreshToken": "****",
+    "role": "Waiter",
     "roleId": "e7349203-1bdf-4d8a-8a83-0f5dccb23e1b",
     "email": null,
     "phone": null,
@@ -37,6 +37,10 @@ curl -X GET "http://127.0.0.1:9154/users"
   }
 ]
 ```
+
+:::caution `isAdmin` is always `false` in this listing
+`getUsers()` never assigns `isAdmin`, so the field falls back to the model default (`false`) **regardless of whether the user is an administrator**. Use `GET /users/{id}` to get the real value — that query does select it.
+:::
 
 **Response Body (Empty list - 200 OK):**
 
@@ -68,19 +72,31 @@ curl -X GET "http://127.0.0.1:9154/users/76ee1086-b945-4170-b2e6-9fbeb95ae0be"
   "name": "admin",
   "pin": "****",
   "refreshToken": null,
-  "role": null,
-  "roleId": "262006ea-8782-4b08-ac3b-b3f13270fec3",
+  "role": "Admin",
+  "roleId": null,
   "email": "admin@ambrosia.com",
   "phone": null,
   "isAdmin": true
 }
 ```
 
+:::danger This endpoint can expose the refresh token
+Unlike `GET /users`, which always masks the token as `"****"`, `getUserById()` returns **the raw `refresh_token` column value**: `null` when the user has no active session, but the **real, unmasked token** when they do. Since the endpoint also requires no authentication, anyone who knows a user ID can obtain the refresh token of an open session. Treat this as a known server-side security flaw, not intended behaviour.
+:::
+
+:::info `isAdmin` is reliable here
+Unlike `GET /users`, this query does select `r.isAdmin`, so the value reflects the real state of the role.
+:::
+
+:::info `roleId` is always `null` here
+The `GET_USER_BY_ID` query selects `r.role` and `r.isAdmin` but **not** `u.role_id`, so `roleId` is never populated in this response. Use `GET /users` if you need the role UUID.
+:::
+
 ### GET `/users/me`
 
 Retrieves the currently authenticated user together with their permissions.
 
-**Authorization:** requires a valid `accessToken`.
+**Authorization:** requires a valid `accessToken` **and** the `refreshToken` cookie. If the latter is missing, it responds `401 { "error": "Refresh token no encontrado" }`.
 
 **cURL Example:**
 
@@ -98,7 +114,7 @@ curl -X GET "http://127.0.0.1:9154/users/me" \
     "userId": "76ee1086-b945-4170-b2e6-9fbeb95ae0be",
     "name": "admin",
     "role": "Admin",
-    "roleId": "262006ea-8782-4b08-ac3b-b3f13270fec3",
+    "roleId": "Admin",
     "isAdmin": true,
     "email": null,
     "phone": null
@@ -108,6 +124,10 @@ curl -X GET "http://127.0.0.1:9154/users/me" \
   ]
 }
 ```
+
+:::caution `roleId` repeats the role name
+The handler builds the response with `roleId = userInfo.role`, assigning the role **name** to the `roleId` field instead of the UUID (which is available as `userInfo.roleId`). That is why `role` and `roleId` return the same value. This is a known server bug — do not rely on `roleId` from this endpoint.
+:::
 
 ### POST `/users`
 
