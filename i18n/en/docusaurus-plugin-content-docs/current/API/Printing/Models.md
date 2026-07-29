@@ -9,24 +9,49 @@ Used to send a print request.
 ```kotlin
 @Serializable
 data class PrintRequest(
-    val printerType: TicketType,           // KITCHEN, CUSTOMER or BAR
-    val ticketData: TicketData,            // Data of the ticket to print
     val templateName: String? = null,      // Template name (optional)
+    val ticketData: TicketData,            // Ticket data to print
+    val printerType: PrinterType,          // KITCHEN, CUSTOMER or BAR
     val printerId: String? = null,         // Printer config UUID (optional)
-    val broadcast: Boolean = false,        // Send to all printers of this type
-    val forceTemplateName: Boolean = false // Force exact template without fallback
+    val broadcast: Boolean = false,        // Send to all printers of the type
+    val forceTemplateName: Boolean = false // Force exact template with no fallback
 )
 ```
 
+#### PrinterType (Enum)
+
+Printer types / ticket destinations.
+
+- `KITCHEN`
+- `CUSTOMER`
+- `BAR`
+
 #### SetPrinterRequest
 
-Used to assign a printer to a ticket type.
+Used to assign a printer to a type.
 
 ```kotlin
 @Serializable
 data class SetPrinterRequest(
-    val printerType: TicketType, // KITCHEN, CUSTOMER or BAR
-    val printerName: String      // Name of the printer
+    val printerType: PrinterType, // KITCHEN, CUSTOMER or BAR
+    val printerName: String       // Printer name
+)
+```
+
+#### PrinterConfig
+
+Persisted printer configuration.
+
+```kotlin
+@Serializable
+data class PrinterConfig(
+    val id: String,
+    val printerType: PrinterType,
+    val printerName: String,
+    val templateName: String? = null,
+    val isDefault: Boolean = false,
+    val enabled: Boolean = true,
+    val createdAt: String? = null
 )
 ```
 
@@ -37,10 +62,13 @@ Defines the structure and content of a ticket template.
 ```kotlin
 @Serializable
 data class TicketTemplate(
-    val name: String, // Unique name of the template
-    val elements: List<TicketElement> // List of elements that make up the ticket
+    val id: String,
+    val name: String,                  // Unique template name
+    val elements: List<TicketElement>  // List of elements composing the ticket
 )
 ```
+
+In create/update requests (`TicketTemplateRequest`), each element is sent as a `TicketElementCreateRequest` (`type`, `value`, `style?`), without `id`, `templateId`, or `order`.
 
 #### TicketElement
 
@@ -49,15 +77,18 @@ Represents an individual element within a ticket template.
 ```kotlin
 @Serializable
 data class TicketElement(
-    val type: ElementType, // Type of element (HEADER, TEXT, etc.)
-    val value: String, // Content or placeholder (e.g. {{ticket.total}})
-    val style: ElementStyle? = null // Optional style of the element
+    val id: String,
+    val templateId: String,
+    val order: Int,
+    val type: ElementType,          // Element type (HEADER, TEXT, etc.)
+    val value: String,              // Content or placeholder (e.g. {{ticket.total}})
+    val style: ElementStyle? = null // Optional element style
 )
 ```
 
 #### ElementType (Enum)
 
-Defines the types of elements that can be used in a template.
+Element types that can be used in a template.
 
 - `HEADER`
 - `TEXT`
@@ -65,7 +96,9 @@ Defines the types of elements that can be used in a template.
 - `SEPARATOR`
 - `TABLE_HEADER`
 - `TABLE_ROW`
+- `TOTAL_ROW`
 - `FOOTER`
+- `QRCODE`
 
 #### ElementStyle
 
@@ -82,15 +115,11 @@ data class ElementStyle(
 
 #### Justification (Enum)
 
-Defines the text justification.
-
 - `LEFT`
 - `CENTER`
 - `RIGHT`
 
 #### FontSize (Enum)
-
-Defines the font size.
 
 - `NORMAL`
 - `LARGE`
@@ -108,7 +137,8 @@ data class TicketData(
     val roomName: String,
     val date: String,
     val items: List<TicketDataItem>,
-    val total: Double
+    val total: Double,
+    val invoice: String? = null
 )
 ```
 
