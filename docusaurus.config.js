@@ -67,9 +67,21 @@ const config = {
       ({
         docs: {
           sidebarPath: "./sidebars.js",
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl: "https://github.com/olympus-btc/ambrosia/tree/main/docs/api",
+          editUrl: "https://github.com/olympus-btc/ambrosia-dev/tree/main/docs",
+          lastVersion: "0.7.1-beta",
+          versions: {
+            current: {
+              label: "v0.8.0 🚧",
+              path: "next",
+              banner: "unreleased",
+            },
+            "0.7.1-beta": {
+              label: "v0.7.1-beta",
+            },
+            "0.5.1-alpha": {
+              label: "v0.5.1-alpha",
+            },
+          },
         },
         blog: {
           showReadingTime: true,
@@ -78,10 +90,7 @@ const config = {
             xslt: true,
           },
           blogSidebarTitle: "Entradas Recientes",
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl:
-            "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/",
+          editUrl: "https://github.com/olympus-btc/ambrosia-dev/tree/main/blog",
           // Useful options to enforce blogging best practices
           onInlineTags: "warn",
           onInlineAuthors: "warn",
@@ -167,6 +176,11 @@ const config = {
           },
           { to: "/blog", label: "Blog", position: "left" },
           { to: "/team", label: "Equipo", position: "left" },
+          {
+            type: "docsVersionDropdown",
+            position: "right",
+            dropdownActiveClassDisabled: true,
+          },
           { type: "localeDropdown", position: "right" },
           {
             href: "https://github.com/olympus-btc/ambrosia",

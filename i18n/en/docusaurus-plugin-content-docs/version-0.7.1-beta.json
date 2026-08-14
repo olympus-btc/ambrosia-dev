@@ -1,0 +1,78 @@
+{
+  "version.label": {
+    "message": "v0.7.1-beta",
+    "description": "The label for version 0.7.1-beta"
+  },
+  "sidebar.apiSidebar.category.Authentication": {
+    "message": "Authentication",
+    "description": "The label for category 'Authentication' in sidebar 'apiSidebar'"
+  },
+  "sidebar.apiSidebar.category.Billing": {
+    "message": "Billing",
+    "description": "The label for category 'Billing' in sidebar 'apiSidebar'"
+  },
+  "sidebar.apiSidebar.category.Bitcoin": {
+    "message": "Bitcoin",
+    "description": "The label for category 'Bitcoin' in sidebar 'apiSidebar'"
+  },
+  "sidebar.apiSidebar.category.Configuration": {
+    "message": "Configuration",
+    "description": "The label for category 'Configuration' in sidebar 'apiSidebar'"
+  },
+  "sidebar.apiSidebar.category.Inventory": {
+    "message": "Inventory",
+    "description": "The label for category 'Inventory' in sidebar 'apiSidebar'"
+  },
+  "sidebar.apiSidebar.category.Printing": {
+    "message": "Printing",
+    "description": "The label for category 'Printing' in sidebar 'apiSidebar'"
+  },
+  "sidebar.apiSidebar.category.Restaurant": {
+    "message": "Restaurant",
+    "description": "The label for category 'Restaurant' in sidebar 'apiSidebar'"
+  },
+  "sidebar.apiSidebar.category.Referencia de la API": {
+    "message": "API Reference",
+    "description": "The label for category 'Referencia de la API' in sidebar 'apiSidebar'"
+  },
+  "sidebar.apiSidebar.category.Referencia de la API.generated-index.title": {
+    "message": "API Reference",
+    "description": "The title of the generated-index for category Referencia de la API in sidebar apiSidebar"
+  },
+  "sidebar.apiSidebar.category.Referencia de la API.generated-index.description": {
+    "message": "Detailed technical documentation of all Ambrosia POS API endpoints and modules.",
+    "description": "The description of the generated-index for category Referencia de la API in sidebar apiSidebar"
+  },
+  "sidebar.apiSidebar.category.Portal de Desarrolladores": {
+    "message": "Developer Portal",
+    "description": "The label for category 'Portal de Desarrolladores' in sidebar 'apiSidebar'"
+  },
+  "sidebar.apiSidebar.category.Portal de Desarrolladores.generated-index.title": {
+    "message": "Developer Portal",
+    "description": "The title of the generated-index for category Portal de Desarrolladores in sidebar apiSidebar"
+  },
+  "sidebar.apiSidebar.category.Portal de Desarrolladores.generated-index.description": {
+    "message": "Resources, guides, and standards for contributing to the Ambrosia POS ecosystem.",
+    "description": "The description of the generated-index for category Portal de Desarrolladores in sidebar apiSidebar"
+  },
+  "sidebar.apiSidebar.category.Referencia de la API.link.generated-index.title": {
+    "message": "API Reference",
+    "description": "The generated-index page title for category 'Referencia de la API' in sidebar 'apiSidebar'"
+  },
+  "sidebar.apiSidebar.category.Referencia de la API.link.generated-index.description": {
+    "message": "Detailed technical documentation of all Ambrosia POS API endpoints and modules.",
+    "description": "The generated-index page description for category 'Referencia de la API' in sidebar 'apiSidebar'"
+  },
+  "sidebar.apiSidebar.category.Store": {
+    "message": "Store",
+    "description": "The label for category 'Store' in sidebar 'apiSidebar'"
+  },
+  "sidebar.apiSidebar.category.Portal de Desarrolladores.link.generated-index.title": {
+    "message": "Developer Portal",
+    "description": "The generated-index page title for category 'Portal de Desarrolladores' in sidebar 'apiSidebar'"
+  },
+  "sidebar.apiSidebar.category.Portal de Desarrolladores.link.generated-index.description": {
+    "message": "Resources, guides, and standards for contributing to the Ambrosia POS ecosystem.",
+    "description": "The generated-index page description for category 'Portal de Desarrolladores' in sidebar 'apiSidebar'"
+  }
+}
