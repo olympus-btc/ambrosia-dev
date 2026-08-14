@@ -68,12 +68,15 @@ const config = {
         docs: {
           sidebarPath: "./sidebars.js",
           editUrl: "https://github.com/olympus-btc/ambrosia-dev/tree/main/docs",
-          lastVersion: "0.5.1-alpha",
+          lastVersion: "0.7.1-beta",
           versions: {
             current: {
-              label: "v0.7.1-beta 🚧",
+              label: "v0.8.0 🚧",
               path: "next",
               banner: "unreleased",
+            },
+            "0.7.1-beta": {
+              label: "v0.7.1-beta",
             },
             "0.5.1-alpha": {
               label: "v0.5.1-alpha",

@@ -1,0 +1,278 @@
+### Gestión de Roles
+
+Los endpoints de roles permiten gestionar los diferentes roles de usuario en el sistema.
+
+### GET `/roles`
+
+Obtiene todos los roles del sistema.
+
+**Authorization:** `roles_read`
+
+**cURL Example:**
+
+```bash
+curl -X GET http://127.0.0.1:9154/roles \
+  -H "Cookie: accessToken=$ACCESS_TOKEN" \
+  -H "Cookie: refreshToken=$REFRESH_TOKEN"
+```
+
+**Response Body (Éxito - 200 OK):**
+
+```json
+[
+  {
+    "id": "e7349203-1bdf-4d8a-8a83-0f5dccb23e1b",
+    "role": "coolrolename",
+    "password": "******",
+    "isAdmin": true
+  }
+]
+```
+
+**Response Body (Lista vacía - 200 OK):**
+
+```json
+"No roles found"
+```
+
+### GET `/roles/{id}`
+
+Obtiene un rol específico por su ID.
+
+**Authorization:** `roles_read`
+
+**Path Parameters:**
+
+- `id` (string): ID del rol a obtener.
+
+**cURL Example:**
+
+```bash
+curl -X GET http://127.0.0.1:9154/roles/76ee1086-b945-4170-b2e6-9fbeb95ae0be \
+  -H "Cookie: accessToken=$ACCESS_TOKEN" \
+  -H "Cookie: refreshToken=$REFRESH_TOKEN"
+```
+
+**Response Body (Éxito - 200 OK):**
+
+```json
+{
+  "id": "e7349203-1bdf-4d8a-8a83-0f5dccb23e1b",
+  "role": "coolrolename",
+  "password": "******",
+  "isAdmin": true
+}
+```
+
+### POST `/roles`
+
+Crea un nuevo rol en el sistema.
+
+**Authorization:** `roles_create`
+
+**Request Body:**
+
+```json
+{
+  "role": "string",
+  "password": "string",
+  "isAdmin": true
+}
+```
+
+**cURL Example:**
+
+```bash
+curl -X POST http://127.0.0.1:9154/roles \
+  -H 'Content-Type: application/json' \
+  -H "Cookie: accessToken=$ACCESS_TOKEN" \
+  -H "Cookie: refreshToken=$REFRESH_TOKEN" \
+  -d '{
+    "role": "admin",
+    "password": "S3cur3P4ssw0rd!!",
+    "isAdmin": true
+  }'
+```
+
+**Response Body (Éxito - 201 Created):**
+
+```json
+{
+  "id": "5f80cf01-9448-4332-a981-0140cba12279",
+  "message": "Role added successfully"
+}
+```
+
+**Response Body (Error - 400 Bad Request):** nombre de rol en blanco o inválido.
+
+```json
+"Invalid role data"
+```
+
+### PUT `/roles/{id}`
+
+Actualiza un rol existente.
+
+**Authorization:** `roles_update`
+
+**Path Parameters:**
+
+- `id` (string): ID del rol a actualizar.
+
+**Request Body:**
+
+```json
+{
+  "role": "admin",
+  "password": "S3cur3P4ssw0rd!!",
+  "isAdmin": true
+}
+```
+
+**cURL Example:**
+
+```bash
+curl -X PUT http://127.0.0.1:9154/roles/76ee1086-b945-4170-b2e6-9fbeb95ae0be \
+  -H 'Content-Type: application/json' \
+  -H "Cookie: accessToken=$ACCESS_TOKEN" \
+  -H "Cookie: refreshToken=$REFRESH_TOKEN" \
+  -d '{
+    "role": "admin",
+    "password": "S3cur3P4ssw0rd123!!",
+    "isAdmin": true
+  }'
+```
+
+**Response Body (Éxito - 200 OK):**
+
+```json
+{
+  "id": "76ee1086-b945-4170-b2e6-9fbeb95ae0be",
+  "message": "Role updated successfully"
+}
+```
+
+**Response Body (Error - 400 Bad Request):** nombre de rol en blanco.
+
+```json
+"Invalid role data"
+```
+
+**Response Body (Error - 404 Not Found):**
+
+```json
+"Role with ID: {id} not found"
+```
+
+### DELETE `/roles/{id}`
+
+Elimina un rol del sistema.
+
+**Authorization:** `roles_delete`
+
+**Path Parameters:**
+
+- `id` (string): ID del rol a eliminar.
+
+**cURL Example:**
+
+```bash
+curl -X DELETE http://127.0.0.1:9154/roles/76ee1086-b945-4170-b2e6-9fbeb95ae0be \
+  -H "Cookie: accessToken=$ACCESS_TOKEN" \
+  -H "Cookie: refreshToken=$REFRESH_TOKEN"
+```
+
+**Response:** `204 No Content` (sin cuerpo).
+
+---
+
+## Permisos por Rol
+
+### GET `/roles/{id}/permissions`
+
+Lista los permisos asignados a un rol.
+
+**Authorization:** `roles_read`
+
+**Path Parameters:**
+
+- `id` (string): ID del rol.
+
+**cURL Example:**
+
+```bash
+curl -X GET http://127.0.0.1:9154/roles/76ee1086-b945-4170-b2e6-9fbeb95ae0be/permissions \
+  -H "Cookie: accessToken=$ACCESS_TOKEN" \
+  -H "Cookie: refreshToken=$REFRESH_TOKEN"
+```
+
+**Response Body (Éxito - 200 OK):**
+
+```json
+[
+  { "id": "0f3c...", "name": "products_read", "description": "List and view products", "enabled": true },
+  { "id": "1a2b...", "name": "orders_create", "description": "Create new orders", "enabled": true }
+]
+```
+
+**Response Body (Sin permisos - 200 OK):**
+
+```json
+"No permissions found for this role"
+```
+
+### PUT `/roles/{id}/permissions`
+
+Reemplaza completamente los permisos asignados a un rol.
+
+**Authorization:** `roles_update`
+
+**Path Parameters:**
+
+- `id` (string): ID del rol.
+
+**Request Body:**
+
+```json
+{
+  "permissions": ["products_read", "orders_create", "orders_read"]
+}
+```
+
+Las claves en `permissions` corresponden al campo `name` de cada permiso.
+
+**cURL Example:**
+
+```bash
+curl -X PUT http://127.0.0.1:9154/roles/76ee1086-b945-4170-b2e6-9fbeb95ae0be/permissions \
+  -H 'Content-Type: application/json' \
+  -H "Cookie: accessToken=$ACCESS_TOKEN" \
+  -H "Cookie: refreshToken=$REFRESH_TOKEN" \
+  -d '{
+    "permissions": ["products_read", "orders_create", "orders_read"]
+  }'
+```
+
+**Response Body (Éxito - 200 OK):**
+
+```json
+{
+  "roleId": "76ee1086-b945-4170-b2e6-9fbeb95ae0be",
+  "assigned": 3
+}
+```
+
+**Response Body (Error - 404 Not Found):** el rol no existe.
+
+```json
+"Role with ID: {id} not found"
+```
+
+### Notas
+
+:::info
+- Los IDs de roles son UUID únicos en el sistema.
+- La eliminación de un rol puede afectar a usuarios que lo tengan asignado.
+- El campo `role` (nombre) es requerido y no puede estar en blanco al crear o actualizar.
+- Un rol puede crearse o editarse sin permisos asignados.
+:::
